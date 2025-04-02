@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #layout {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+    </style>
+    <div id="layout">
+        <h1>Upload your Image</h1>
+        <form id='upload' method="POST" enctype="multipart/form-data">
+            <input type="file" name="image"  accept="image/*" required>
+            <br></br><button type="submit"> upload</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('upload').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this);
+
+            fetch('http://localhost:3002/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'File uploaded successfully') {
+                        alert('Image uploaded successfully!');
+                    } else {
+                        alert('Error uploading image...!!!.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading image.');
+                });
+        });
+    </script>
+
+</body>
+
+</html>
