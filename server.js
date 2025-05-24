@@ -1,37 +1,70 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
-const path = require('path');
-const fs = require('fs');
 const cors = require('cors');
-var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-
+const fs = require('fs');
+const multer = require('multer');
+const path = require('path');
+const rfs = require('rotating-file-stream')
+let imagepath = path.join(__dirname,'uploads');
 const app = express();
-app.use(fileUpload());
 app.use(cors());
-app.post('/upload', (req, res) => {
-    console.log("file uploading");
-    const file = req.files.image;
-    const filePath = path.join(__dirname + '/uploads/' + file.name);
-
-    const logFilePath = path.join(__dirname, 'log.txt');
-
-    file.mv(filePath, function (err) {
+app.use("/upload",express.static(imagepath)); 
+const upload = multer(
+    {
+        storage:multer.diskStorage({
+            destination:(req,file,cb)=>{
+                const dir = 'uploads';
+                cb(null,dir);
+            },
+            filename:(req,file,cb)=>{
+                const extension = path.extname(file.originalname);
+                const new_filename = Date.now() +Math.round(Math.random())+ extension;
+                cb(null,new_filename);  
+            },   
+        }),
+        limits:{
+            fileSize: 1 * 1024 * 1024, 
+        },
+        fileFilter :(req,file,cb)=>{
+            let filetype = /jpeg|jpg|png/;
+            let checkfile = filetype.test(file.mimetype);
+            if(checkfile){
+                cb(null,true);       
+            }
+            else{
+                cb("file willbe not a correct extension",false)
+            }
+        }   
+    }
+);
+// multer using for file upload, fs using log file writing, path using for directory
+app.post('/upload',upload.single('image'),(req, res)=>{
+    let file = req.file.image;
+    let timestamp = new Date().toISOString();
+    let logFilePath = path.join(__dirname,'log.txt');
+    file.mv(imagepath, function (err) {
         if (err) {
             console.log(err);
         }
         const logEntry = `${timestamp} - ${file.name} uploaded successfully\n`;
         fs.appendFileSync(logFilePath, logEntry, 'utf8');
 
-        console.log("File saved successfully");
         console.log(logEntry,"Log written successfully");
         res.json({ message: "File uploaded successfully", filePath });
     })
 
+    res.json({
+        status: 'success single',
+        data: req.file
+    });
 });
-app.post('/', (req, res) => {
-    console.log("file uploading");
-    return res.json({ message: 'please upload a file' });
-})
-app.listen(3002, () => {
-    console.log('Server is running on port 3002');
-})
+app.post('/uploadlg',upload.array('image',10),(req, res)=>{
+
+    res.json({  
+        status: 'success multiple', 
+        data: req.files
+    });
+});
+
+app.listen(7000,()=>{
+    console.log('Server is running on port 7000');
+});
