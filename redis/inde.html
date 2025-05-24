@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ETag Fetch Example</title>
+</head>
+<body>
+  <h1>Check Console for Fetch Output</h1>
+
+  <script>
+    // Store ETag in memory (or use localStorage if persistent caching is needed)
+    let storedETag = "ce0e87d91d98154fe086966f628aaa1f";
+
+    async function fetchWithETag() {
+      const headers = {};
+
+      if (storedETag) {
+        headers['If-None-Match'] = storedETag;
+      }
+
+      try {
+        const response = await fetch('http://localhost:8000', {
+          method: 'GET',
+          headers: headers
+        });
+
+        if (response.status === 304) {
+          console.log('✅ Response not modified. Using cached content.',response.headers
+
+          );
+          console.log('💾 ETag stored:', storedETag);
+
+        } else if (response.status === 200) {
+           
+          const data = await response.text();
+          storedETag = response.headers.get('ETag');
+          console.log('📦 New content fetched:', data);
+          console.log('💾 ETag stored:', storedETag);
+        } else {
+          console.log('❌ Unexpected status:', response.status);
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    }
+
+    // First call to simulate fresh fetch
+    fetchWithETag();
+
+    // Second call after 3 seconds to test caching
+    setTimeout(fetchWithETag, 3000);
+  </script>
+</body>
+</html>
