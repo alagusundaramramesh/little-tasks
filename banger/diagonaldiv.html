@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIAGONAL DIV FIX</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'TCF-Noli';
+            src: url('./fonts/tcf-noli-black-maisfontes.80c5/tcf-noli-black.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .feature-section {
+            position: relative;
+            margin: -30px 0;
+            /* padding: 70px 0; */
+            overflow: hidden;
+        }
+
+        .feature-clip-a {
+            clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0 90%);
+            background: #600202;
+            background: linear-gradient(90deg, rgba(96, 2, 2, 1) 0%, rgba(163, 1, 1, 1) 35%, rgba(218, 0, 0, 1) 68%);
+        }
+
+        .feature-clip-b {
+            clip-path: polygon(0 0%, 100% 10%, 100% 90%, 0 100%);
+            background: #D32209;
+            background: linear-gradient(90deg, rgba(211, 34, 9, 0.93) 41%, rgba(205, 31, 39, 1) 69%, rgba(199, 28, 61, 1) 89%);
+        }
+
+        .feature-clip-c {
+            clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0 90%);
+            background: #470A17;
+            background: linear-gradient(90deg, rgba(71, 10, 23, 0.99) 7%, rgba(129, 14, 38, 1) 28%, rgba(169, 16, 48, 1) 63%)
+        }
+
+        .feature-section .feature-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-text {
+            color: #fff;
+            padding: 15px 20px;
+        }
+
+        .feature-text h4 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text h5 {
+            font-size: 32px;
+            margin: 0 0 14px;
+        }
+
+        .feature-text h6 {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .feature-image-wrap {
+            padding: 10px 20px;
+        }
+
+        .feature-image-wrap img {
+            width: 100%;
+            max-width: 860px;
+            height: auto;
+            display: block;
+        }
+
+        .reveal {
+            opacity: 0;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-left {
+            transform: translateX(-55px);
+        }
+
+        .reveal-right {
+            transform: translateX(55px);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .gradient-div,
+        .image-div {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 98%, 0% 91%);
+
+        }
+
+        .gradient-div {
+            background: #7C0D25;
+            background: linear-gradient(90deg,rgba(124, 13, 37, 1) 25%, rgba(253, 29, 29, 1) 100%);
+            /* z-index: 1; */
+        }
+
+        .gallery-layout {
+            clip-path: polygon(0% 9%, 100% 0%, 100% 100%, 0% 100%);
+            background: #3F5EFB;
+            background: linear-gradient(
+            90deg,
+            #4b2a8f 0%,
+            #FA513B 20%,
+            #c72c7a 40%,
+            #F60A3C 60%,
+            #A22A8F 80%,
+            #4b2a8f 100%
+            );
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <!-- Section 3 -->
+    <section class="feature-section feature-clip-a">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-6 reveal reveal-left feature-text">
+                    <h4 style="font-family:'TCF-Noli', sans-serif; font-size: xxx-large;">PRECISION</h4>
+                    <h5>Master Every Shot</h5>
+                    <h6>Bend,Curve and Strike with Accuracy as you outplay your opponent in high pressure penalty
+                        moments.</h6>
+                </div>
+                <div class="col-md-6 reveal reveal-right feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec1.png" /> </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature-section feature-clip-b">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-7 reveal reveal-left feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec2.png" /> </div>
+                <div class="col-md-5 reveal reveal-right feature-text">
+                    <h4 style="font-family:'TCF-Noli', sans-serif; font-size: xxx-large;">REFLEX</h4>
+                    <h5>Defend like a Pro</h5>
+                    <h6>Switch roles and become the goal keeper aniticipate,react and block every incoming shot to stay
+                        a head</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature-section">
+        <div class="gallery-layout">
+        <div class="gradient-div"></div>
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-5 reveal reveal-left feature-text">
+                    <h4 style="font-family:'TCF-Noli', sans-serif; font-size: xxx-large;">Duel</h4>
+                    <h5 style="font-family: 'Bebas Neue', sans-serif;letter-spacing: 2px;">Win the Face off</h5>
+                    <h6 style="font-family: 'Bebas Neue', sans-serif;letter-spacing: 2px;">Take turns to shoot and defend in intense 1 v 1 battles where every goal counts towards victory.
+                    </h6>
+                </div>
+                <div class="col-md-7 reveal reveal-right feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec3.png" /> </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <script>
+        const revealItems = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealItems.forEach((item) => observer.observe(item));
+    </script>
+
+</body>
+
+</html>

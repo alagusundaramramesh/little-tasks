@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Parallax Fix</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'TCF-Noli';
+            src: url('./fonts/tcf-noli-black-maisfontes.80c5/tcf-noli-black.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .content-section {
+            /* height: 200vh; */
+            background: linear-gradient(180deg, #000 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-section h1 {
+            color: white;
+            font-size: 3rem;
+        }
+
+        .hero-section {
+            /* min-height: 100vh; */
+            position: relative;
+            /* overflow: hidden; */
+
+        }
+
+        .moving-object-1 {
+            left: 0%;
+            position: absolute;
+            transform: translateY(-50%);
+            top: 13%;
+            will-change: transform;
+            z-index: 3;
+        }
+
+        .moving-object-2 {
+            right: 0px;
+            position: absolute;
+            top: 35%;
+            transform: translateY(-50%);
+            will-change: transform;
+            z-index: 2;
+        }
+
+        /* .moving-object-1 img, */
+        .moving-object-2 img {
+            width: 100%;
+        }
+
+        .moving-object-1 img {
+            width: 80%;
+        }
+
+        .moving-object-1,
+        .moving-object-2 {
+            transition: transform 0.2s ease-out;
+        }
+
+        .hero-section .hero-overlay {
+            position: relative;
+            z-index: 3;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .hero-section .hero-overlay .row {
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero-section .left-visual {
+            position: relative;
+            min-height: 70vh;
+        }
+
+        .hero-section .right-text {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            min-height: 70vh;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .moving-object-1 {
+                left: 50px;
+                transform: translateY(-50%) !important;
+            }
+
+            .moving-object-2 {
+                right: 50px;
+                transform: translateY(-50%) !important;
+            }
+        }
+
+        .section-1 {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .section-1 video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .section-1 .overlay-content {
+            position: relative;
+            z-index: 2;
+            /* min-height: 100vh; */
+        }
+
+        .section-1 .overlay-content .row {
+            min-height: 100vh;
+
+        }
+
+        .section-1 .right-panel {
+            /* min-height: 100vh; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0px 20px 40px 20px;
+        }
+
+        .section-1 .right-panel .logo-img {
+            max-width: 100%;
+            height: auto;
+            margin-left: auto;
+        }
+
+        .section-1 .store-icons img {
+            width: 200px;
+            max-width: 100%;
+            margin-right: 20px;
+            /* padding: 20px; */
+        }
+
+        /* .hero-section p {
+            right: 19%;
+            position: absolute;
+            top: 35%;
+            transform: translateY(-50%);
+            will-change: transform;
+            z-index: 4;
+            font-family: fantasy;
+            font-size: x-large;
+        } */
+        .hero-section p {
+            right: 19%;
+            position: absolute;
+            top: 35%;
+            transform: translateY(-50%);
+            will-change: transform;
+            z-index: 4;
+            font-family: fantasy;
+            font-size: x-large;
+            width: 350px;
+            overflow-wrap: break-word;
+        }
+
+        .feature-section {
+            position: relative;
+            margin: -30px 0;
+            padding: 70px 0;
+            overflow: hidden;
+        }
+
+        .feature-clip-a {
+            clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0 90%);
+            background: #600202;
+            background: linear-gradient(90deg, rgba(96, 2, 2, 1) 0%, rgba(163, 1, 1, 1) 35%, rgba(218, 0, 0, 1) 68%);
+        }
+
+        .feature-clip-b {
+            clip-path: polygon(0 0%, 100% 10%, 100% 90%, 0 100%);
+            background: #D32209;
+            background: linear-gradient(90deg, rgba(211, 34, 9, 0.93) 41%, rgba(205, 31, 39, 1) 69%, rgba(199, 28, 61, 1) 89%);
+        }
+
+        .feature-clip-c {
+            clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0 90%);
+            background: #470A17;
+            background: linear-gradient(90deg, rgba(71, 10, 23, 0.99) 7%, rgba(129, 14, 38, 1) 28%, rgba(169, 16, 48, 1) 63%)
+        }
+
+        .feature-section .feature-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-text {
+            color: #fff;
+            padding: 15px 20px;
+        }
+
+        .feature-text h4 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text h5 {
+            font-size: 32px;
+            margin: 0 0 14px;
+        }
+
+        .feature-text h6 {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .feature-image-wrap {
+            padding: 10px 20px;
+        }
+
+        .feature-image-wrap img {
+            width: 100%;
+            max-width: 860px;
+            height: auto;
+            display: block;
+        }
+
+        .reveal {
+            opacity: 0;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-left {
+            transform: translateX(-55px);
+        }
+
+        .reveal-right {
+            transform: translateX(55px);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section-last {
+            clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 100%);
+            background: #fff;
+            /* background: linear-gradient(90deg, rgba(211, 34, 9, 0.93) 41%, rgba(205, 31, 39, 1) 69%, rgba(199, 28, 61, 1) 89%); */
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .slider-container .slick-list,
+        .slider-container .slick-track,
+        .slider-container .slick-slide,
+        .slider-container .slick-slide>div {
+            height: 100%;
+        }
+
+        .phone-slider-wrapper {
+            position: relative;
+            /* width: min(420px, 86vw); */
+            margin: 0 auto;
+            background: transparent;
+            padding: 0;
+            min-height: auto;
+            /* height: 100vh; */
+            overflow: visible;
+        }
+
+
+        .phone-overlay {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            left: auto;
+            top: auto;
+            transform: none;
+        }
+
+        /* slider sits inside frame screen area */
+        .phone-slider {
+            position: absolute;
+            z-index: 2;
+            top: 6.8%;
+            left: 8.5%;
+            width: 83%;
+            height: 86.2%;
+            overflow: hidden;
+            border-radius: 26px;
+        }
+
+        .phone-slider .slick-list,
+        .phone-slider .slick-track,
+        .phone-slider .slick-slide,
+        .phone-slider .slick-slide>div {
+            height: 100%;
+        }
+
+        .phone-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .phone-slide p {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            margin: 0;
+            text-align: center;
+            color: #fff;
+            z-index: 4;
+        }
+
+        .phone-slide {
+            position: relative;
+        }
+
+        .slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .feature-clip-slider {
+            clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 85%);
+            background: #600202;
+            /* background: linear-gradient(90deg, rgba(96, 2, 2, 1) 0%, rgba(163, 1, 1, 1) 35%, rgba(218, 0, 0, 1) 68%); */
+        }
+
+        .gallery-overlay {
+            /* position: relative; */
+            height: 100vh;
+            /* top: 5%; */
+            /* bottom: 0; */
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.5);
+            /* Black see-through */
+            color: #f1f1f1;
+            /* width: 100%; */
+            transition: .5s ease;
+            opacity: 0;
+            color: white;
+            font-size: 20px;
+            padding: 20px;
+            text-align: center;
+            opacity: 1;
+        }
+
+        .character-container {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            margin-top: 0;
+        }
+
+        .character-stage {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .scene-dark {
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 25, 30, 0.58);
+            z-index: 1;
+        }
+
+        .scene-cone {
+            position: absolute;
+            left: 28%;
+            top: 0;
+            width: 56vw;
+            height: 100%;
+            background: rgba(180, 190, 188, 0.28);
+            clip-path: polygon(35% 0, 65% 0, 100% 100%, 0 100%);
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .spotlight-img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateX(-50%);
+            /* width: clamp(260px, 35vw, 560px); */
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .character-container .slick-list {
+            overflow: visible;
+        }
+
+        .character-container .slick-track {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .character-container .slick-slide {
+            transform: scale(0.9);
+            transition: transform 0.6s ease;
+            padding: 0 10px;
+        }
+
+        .character-container .slick-slide>div {
+            position: relative;
+        }
+
+        .character-container .slick-slide img {
+            filter: brightness(0.15);
+            transition: all 0.8s ease-in-out;
+            width: 100%;
+            max-width: 490px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .character-container .slick-slide>div::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .character-container .slick-current {
+            transform: scale(1.08);
+            z-index: 3;
+        }
+
+        .character-container .slick-current img {
+            filter: brightness(1);
+        }
+
+        .character-container .slick-current>div::after {
+            opacity: 0;
+        }
+
+        .gradient-div {
+            top: 2%;
+            width: 100vw;
+            height: 250px;
+            margin-left: calc(50% - 51vw);
+            margin-right: calc(50% - 50vw);
+            background: linear-gradient(180deg, #5A2CA1 0%, #6A3197 45%, #df3f4f 100%);
+            /* clip-path: polygon(8% 0, 92% 0, 100% 14%, 100% 86%, 92% 100%, 8% 100%, 0 86%, 0 14%); */
+            opacity: 1;
+            position: relative;
+            z-index: 3;
+        }
+
+        .scene-bottom-strip {
+            position: absolute;
+            left: -2vw;
+            right: -2vw;
+            bottom: -2vh;
+            height: 72px;
+            background: linear-gradient(90deg, #5f2ca9 0%, #ff184f 45%, #6f34b2 100%);
+            transform: rotate(-4deg);
+            z-index: 6;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 0% 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div style="height: 15px; background: #FC7F3A;
+background: linear-gradient(90deg,rgba(252, 127, 58, 1) 24%, rgba(246, 26, 59, 1) 62%, rgba(246, 10, 60, 1) 97%);
+  
+">
+        <!-- <h1>My Header</h1>   clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%); -->
+    </div>
+
+    <!-- Section 1 -->
+    <section class="section-1">
+        <video autoplay loop muted playsinline>
+            <source src="/cg-gamezone/client/public/images/banger/file.mp4" type="video/mp4">
+        </video>
+
+        <div class="container-fluid overlay-content">
+            <div class="row">
+                <div class="col-md-7 col-sm-6"></div>
+                <div class="col-md-5 col-sm-6">
+                    <div class="right-panel">
+                        <div
+                            style="margin-top: -13px; margin-left: auto; margin-top: -13px; position: relative; right: 30px;">
+                            <img class="logo-img" src="/cg-gamezone/client/public/images/banger/logo.png" width="670"
+                                alt="Banger Logo" />
+                        </div>
+                        <div class="store-icons"
+                            style="margin-left: auto; position: relative; margin-right: 20%; margin-top: 20%;">
+                            <img src="/cg-gamezone/client/public/images/playstore.png" alt="Google Play" />
+                            <img src="/cg-gamezone/client/public/images/app_store_v2.png" alt="App Store" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2-->
+    <section class="hero-section"> <img src="/cg-gamezone/client/public/images/banger/bg2.png"
+            style=" margin-top: -191px; position: relative; z-index: 1;" />
+        <div class="moving-object-1"> <img src="/cg-gamezone/client/public/images/banger/ball.png" alt="Ball"> </div>
+        <div class="moving-object-2"> <img src="/cg-gamezone/client/public/images/banger/flying_char.png" alt="Player"> </div>
+        <!-- <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia distinctio atque placeat expedita unde autem est dolorem aliquid labore totam. Asperiores saepe a dolore, deserunt facilis voluptate accusamus aspernatur obcaecati.</p> -->
+    </section>
+
+    <!-- Section 3 -->
+    <section class="feature-section feature-clip-a">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-6 reveal reveal-left feature-text">
+                    <h4 style="font-family:'TCF-Noli', sans-serif; font-size: xxx-large;">PRECISION</h4>
+                    <h5>Master Every Shot</h5>
+                    <h6>Bend,Curve and Strike with Accuracy as you outplay your opponent in high pressure penalty
+                        moments.</h6>
+                </div>
+                <div class="col-md-6 reveal reveal-right feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec1.png" /> </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature-section feature-clip-b">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-7 reveal reveal-left feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec2.png" /> </div>
+                <div class="col-md-5 reveal reveal-right feature-text">
+                    <h4 style="font-family:'TCF-Noli', sans-serif; font-size: xxx-large;">REFLEX</h4>
+                    <h5>Defend like a Pro</h5>
+                    <h6>Switch roles and become the goal keeper aniticipate,react and block every incoming shot to stay
+                        a head</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature-section feature-clip-c">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-5 reveal reveal-left feature-text">
+                    <h4 style="font-family:'TCF-Noli', sans-serif; font-size: xxx-large;">Duel</h4>
+                    <h5 style="font-family: 'Bebas Neue', sans-serif;letter-spacing: 2px;">Win the Face off</h5>
+                    <h6 style="font-family: 'Bebas Neue', sans-serif;letter-spacing: 2px;">Take turns to shoot and defend in intense 1 v 1 battles where every goal counts towards victory.
+                    </h6>
+                </div>
+                <div class="col-md-7 reveal reveal-right feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec3.png" /> </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Section 7 -->
+
+
+    <section class="character-stage"
+        style="background-image: url('/cg-gamezone/client/public/images/banger/map.png');clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);">
+        <img class="spotlight-img" src="/cg-gamezone/client/public/images/banger/light.png" />
+        <div class="container-fluid">
+            <div class="row gallery-overlay">
+
+                <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 37px 0px 0px 45px;">
+
+                    <div class="character-container">
+                        <div>
+                            <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                        </div>
+                        <div>
+                            <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                        </div>
+                        <div>
+                            <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                        </div>
+                        <div>
+                            <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                        </div>
+                        <div>
+                            <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                        </div>
+                        <div>
+                            <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                        </div>
+
+                    </div>
+                    <div class="scene-bottom-strip"></div>
+
+                </div>
+            </div>
+        </div>
+        <p
+            style="float: right; right: 6%; font-size: 58px; top:5px; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; font-family:'TCF-Noli', sans-serif;">
+            &nbsp;&nbsp;&nbsp;PLAYER</p>
+            <p
+            style="float: right; right: 6%; font-size: 58px; top:60px; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; font-family:'TCF-Noli', sans-serif;">
+            &nbsp;&nbsp;&nbsp;GALLERY</p>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="">
+
+        <div class="slider-container feature-clip-slider">
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/1.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/2.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/3.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/4.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/5.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/6.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/7.jpg');"></div>
+            <div class="slide" style="background-image: url('/cg-gamezone/client/public/images/banger/8.jpg');"></div>
+        </div>
+
+    </section>
+
+    <!-- Section 5 -->
+    <section class="" style="background: #470A17; clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 87%);">
+        <div class="container-fluid">
+            <h3 class="text-center"
+                style="font-family:'TCF-Noli', sans-serif;color:#fff; margin-bottom: 24px; margin-top: 130px; font-size: 80px; -webkit-text-stroke: 1px #A18FBF;">
+                Game Screenshots</h3>
+            <div class="row" style="margin-bottom: 150px;">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="phone-slider-wrapper">
+                        <div class="phone-slider">
+                            <div class="phone-slide">
+                                <img src="/cg-gamezone/client/public/images/banger/Media 1.jpg" alt="Ice Land">
+                                <p>Ice Land</p>
+                            </div>
+                            <div class="phone-slide">
+                                <img src="/cg-gamezone/client/public/images/banger/Media 2.jpg" alt="Taj Mahal">
+                                <p>Taj Mahal</p>
+                            </div>
+                            <div class="phone-slide">
+                                <img src="/cg-gamezone/client/public/images/banger/Media 3.jpg" alt="Tower Bridge">
+                                <p>Tower Bridge</p>
+                            </div>
+                        </div>
+                        <img class="phone-overlay" src="/cg-gamezone/client/public/images/banger/screen.png"
+                            alt="Phone Frame">
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="section-last">
+        <div>
+            <img src="/cg-gamezone/client/public/images/banger/logo.png"
+                style="display: block;margin-left: auto; margin-right: auto; width: 50%;" />
+        </div>
+    </section>
+
+    <script>
+
+
+        //slick js }
+
+        $(document).ready(function () {
+            $('.slider-container').slick({
+                dots: false,
+                arrows: false,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 2200
+            });
+
+            $('.phone-slider').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                speed: 700,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 1800,
+                pauseOnHover: false,
+                focusOnSelect: false
+            });
+            $('.character-container').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                centerMode: false,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                speed: 900,
+                // autoplay: true,
+                // autoplaySpeed: 3000,
+                focusOnSelect: true
+            });
+
+            function alignSpotlightToActiveCharacter() {
+                const $stage = $('.character-stage');
+                const $spotlight = $stage.find('.spotlight-img');
+                const $currentImg = $stage.find('.character-container .slick-current img');
+
+                if (!$stage.length || !$spotlight.length || !$currentImg.length) return;
+
+                const stageRect = $stage[0].getBoundingClientRect();
+                const currentRect = $currentImg[0].getBoundingClientRect();
+                const currentCenterX = (currentRect.left + currentRect.right) / 2;
+                const relativeX = currentCenterX - stageRect.left;
+
+                $spotlight.css('left', relativeX + 'px');
+            }
+
+            alignSpotlightToActiveCharacter();
+            $('.character-container').on('init setPosition afterChange', function () {
+                alignSpotlightToActiveCharacter();
+            });
+            $(window).on('resize', function () {
+                alignSpotlightToActiveCharacter();
+            });
+        });
+
+        // moving script.
+        const object1 = document.querySelector('.moving-object-1');
+        const object2 = document.querySelector('.moving-object-2');
+        const heroSection = document.querySelector('.hero-section');
+        // const MAX_MOVE = 250; // 👈 stopping point
+
+        function handleScroll() {
+            // Disable movement on mobile
+            if (window.innerWidth <= 768) {
+                object1.style.transform = 'translateY(-50%)';
+                object2.style.transform = 'translateY(-50%)';
+                return;
+            }
+
+            const rect = heroSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Run only when hero section is visible
+            if (rect.top < windowHeight && rect.bottom > 0) {
+
+                // Convert section position to progress (0 → 1)
+                let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+
+                // Clamp (prevent overflow)
+                progress = Math.max(0, Math.min(1, progress));
+
+                // Control speed here
+                // const moveX = progress * 600;
+
+                //  STOP at limit
+                // moveX = Math.min(moveX, MAX_MOVE);
+                let moveX = Math.min(progress * 600, 234);
+
+                // Apply movement
+                object1.style.transform = `translate(${moveX}px, -50%)`;
+                object2.style.transform = `translate(-${moveX}px, -50%)`;
+            }
+        }
+
+        // Listen scroll
+        window.addEventListener('scroll', handleScroll);
+
+        handleScroll();
+
+        const revealItems = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealItems.forEach((item) => observer.observe(item));
+
+    </script>
+
+</body>
+
+</html>
