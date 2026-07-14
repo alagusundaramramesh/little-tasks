@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banger - CG</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            background: #321E4A;
+            background: radial-gradient(circle, rgba(50, 30, 74, 1) 0%, rgba(17, 1, 46, 1) 100%);
+        }
+
+        @font-face {
+            font-family: 'TCF-Noli';
+            src: url('./fonts/tcf-noli-black-maisfontes.80c5/tcf-noli-black.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        .section-1 {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .section-1 video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .section-1 .overlay-content {
+            position: relative;
+            z-index: 2;
+            /* min-height: 100vh; */
+        }
+
+        .section-1 .overlay-content .row {
+            min-height: 100vh;
+
+        }
+
+        .section-1 .right-panel {
+            /* min-height: 100vh; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0px 20px 40px 20px;
+        }
+
+        .section-1 .right-panel .logo-img {
+            max-width: 100%;
+            height: auto;
+            margin-left: auto;
+        }
+
+        .section-1 .store-icons img {
+            width: 200px;
+            max-width: 100%;
+            margin-right: 20px;
+            /* padding: 20px; */
+        }
+
+        .hero-section {
+            /* min-height: 100vh; */
+            position: relative;
+            /* overflow: hidden; */
+
+        }
+
+        .moving-object-1 {
+            left: 0%;
+            position: absolute;
+            transform: translateY(-50%);
+            top: 23%;
+            will-change: transform;
+            z-index: 3;
+        }
+
+        .moving-object-2 {
+            right: 0px;
+            position: absolute;
+            top: 43%;
+            transform: translateY(-50%);
+            will-change: transform;
+            z-index: 2;
+        }
+
+        .moving-object-2 img {
+            width: 100%;
+        }
+
+        .moving-object-1 img {
+            width: 80%;
+        }
+
+        .moving-object-1,
+        .moving-object-2 {
+            transition: transform 0.2s ease-out;
+        }
+
+        .hero-section .hero-overlay {
+            position: relative;
+            z-index: 3;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .hero-section .hero-overlay .row {
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero-section .left-visual {
+            position: relative;
+            min-height: 70vh;
+        }
+
+        .hero-section .right-text {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            min-height: 70vh;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+       
+
+        header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .moving-object-1 {
+                left: 50px;
+                transform: translateY(-50%) !important;
+            }
+
+            .moving-object-2 {
+                right: 50px;
+                transform: translateY(-50%) !important;
+            }
+        }
+
+        /* diagonal div */
+        .feature-section {
+            position: relative;
+            /* margin: -30px 0 0px; */
+            /* padding: 70px 0; */
+            overflow: hidden;
+        }
+
+        .feature-section-1 {
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin-top: -103px;
+        }
+
+        .feature-clip-a {
+            clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0 90%);
+            background: #600202;
+            background: linear-gradient(90deg, rgba(96, 2, 2, 1) 0%, rgba(163, 1, 1, 1) 35%, rgba(218, 0, 0, 1) 68%);
+        }
+
+        .feature-clip-b {
+            clip-path: polygon(0 0%, 100% 10%, 100% 90%, 0 100%);
+            background: #D32209;
+            background: linear-gradient(90deg, rgba(211, 34, 9, 0.93) 41%, rgba(205, 31, 39, 1) 69%, rgba(199, 28, 61, 1) 89%);
+        }
+
+        .feature-clip-c {
+            clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0 90%);
+            background: #470A17;
+            background: linear-gradient(90deg, rgba(71, 10, 23, 0.99) 7%, rgba(129, 14, 38, 1) 28%, rgba(169, 16, 48, 1) 63%)
+        }
+
+        .feature-section  .feature-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-section-1 .feature-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-text {
+            color: #fff;
+            padding: 15px 20px 0 4%;
+        }
+
+        .feature-text h4 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text h5 {
+            font-size: 32px;
+            margin: 0 0 14px;
+        }
+
+        .feature-text h6 {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .feature-image-wrap {
+            padding: 10px 20px;
+        }
+
+        .feature-image-wrap img {
+            width: 100%;
+            max-width: 860px;
+            height: auto;
+            display: block;
+        }
+
+        .reveal {
+            opacity: 0;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-left {
+            transform: translateX(-55px);
+        }
+
+        .reveal-right {
+            transform: translateX(55px);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .gradient-div,
+        .image-div {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 98%, 0% 91%);
+
+        }
+
+        .gradient-div {
+            background: #7C0D25;
+            background: linear-gradient(90deg,rgba(124, 13, 37, 1) 25%, rgba(253, 29, 29, 1) 100%);
+            /* z-index: 1; */
+        }
+
+        .gallery-layout {
+            clip-path: polygon(0% 9%, 100% 0%, 100% 100%, 0% 100%);
+            background: #5629A3;
+            background: linear-gradient(90deg, rgba(86, 41, 163, 1) 20%, rgba(236, 9, 59, 1) 80%);
+            z-index: 1;
+        }
+
+        /* PLayer gallery div */
+        .slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .feature-clip-slider {
+            clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 85%);
+            background: #600202;
+        }
+
+        .gallery-overlay {
+            /* position: relative; */
+            height: 100vh;
+            /* top: 5%; */
+            /* bottom: 0; */
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.5);
+            /* Black see-through */
+            color: #f1f1f1;
+            /* width: 100%; */
+            opacity: 0;
+            color: white;
+            font-size: 20px;
+            padding: 20px;
+            text-align: center;
+            opacity: 1;
+        }
+
+        .character-container {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            margin-top: 0;
+        }
+
+        .character-stage {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .scene-dark {
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 25, 30, 0.58);
+            z-index: 1;
+        }
+
+        .scene-cone {
+            position: absolute;
+            left: 28%;
+            top: 0;
+            width: 56vw;
+            height: 100%;
+            background: rgba(180, 190, 188, 0.28);
+            clip-path: polygon(35% 0, 65% 0, 100% 100%, 0 100%);
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .spotlight-img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateX(-50%);
+            /* width: clamp(260px, 35vw, 560px); */
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .character-container .slick-list {
+            overflow: visible;
+        }
+
+        .character-container .slick-track {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .character-container .slick-slide {
+            transform: scale(0.9);
+            transition: transform 0.6s ease;
+            padding: 0 10px;
+        }
+
+        .character-container .slick-slide>div {
+            position: relative;
+        }
+
+        .character-container .slick-slide img {
+            filter: brightness(0.15);
+            transition: all 0.8s ease-in-out;
+            width: 100%;
+            max-width: 490px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .character-container .slick-slide>div::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .character-container .slick-current {
+            transform: scale(1.08);
+            z-index: 3;
+        }
+
+        .character-container .slick-current img {
+            filter: brightness(1);
+        }
+
+        .character-container .slick-current>div::after {
+            opacity: 0;
+        }
+
+
+        .gallery-layout-player {
+            /* position: relative; */
+            /* width: min(1200px, 96vw); */
+            /* height: 420px; */
+            /* margin: 14px auto 0; */
+            /* z-index: 3; */
+            font-family: 'font-family:'TCF-Noli', sans-serif;';
+        }
+
+        .gradient-div-player,
+        .image-div-player {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 0% 100%);
+
+        }
+
+        .gradient-div-player {
+            background: #3F5EFB;
+            background: linear-gradient(
+            90deg,
+            #4b2a8f 0%,
+            #FA513B 20%,
+            #c72c7a 40%,
+            #F60A3C 60%,
+            #A22A8F 80%,
+            #4b2a8f 100%
+            );
+            z-index: 1;
+        }
+
+        .image-div-player {
+            background: rgba(15, 9, 24, 0.62);
+            clip-path:polygon(0 0, 100% 0, 100% 100%, 100% 84%, 0 98%);
+            z-index: 2;
+        }
+
+        /* slider container */
+        .slider-container {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .slider-container .slick-list,
+        .slider-container .slick-track,
+        .slider-container .slick-slide,
+        .slider-container .slick-slide>div {
+            height: 100%;
+        }
+
+        .feature-clip-slider {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 99.9%, 0% 87%);
+            background: #600202;
+            /* background: linear-gradient(90deg, rgba(96, 2, 2, 1) 0%, rgba(163, 1, 1, 1) 35%, rgba(218, 0, 0, 1) 68%); */
+        }
+
+        .slider-container img {
+            transform: scale(1.1);
+        }
+        .slider-container .slide {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-container .slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .slider-container .slide img {
+            position: relative;
+            z-index: 1;
+        }
+
+        .slider-container .slick-prev,
+        .slider-container .slick-next {
+            z-index: 20;
+            width: 42px;
+            height: 42px;
+        }
+
+        .slider-container .slick-prev {
+            left: 20px;
+        }
+
+        .slider-container .slick-next {
+            right: 20px;
+        }
+
+        .slider-container .slick-prev:before,
+        .slider-container .slick-next:before {
+            color: #fff;
+            font-size: 42px;
+            opacity: 1;
+        }
+
+        .slider-container .slick-dots {
+            bottom: 70px;
+            z-index: 20;
+        }
+
+        .slider-container .slick-dots li button:before {
+            color: #fff;
+            opacity: 0.55;
+            font-size: 11px;
+        }
+
+        .slider-container .slick-dots li.slick-active button:before {
+            opacity: 1;
+        }
+
+
+        /* game screenshot container */
+        .phone-slider-wrapper {
+            position: relative;
+            /* width: min(420px, 86vw); */
+            margin: 0 auto;
+            background: transparent;
+            padding: 0;
+            min-height: auto;
+            /* height: 100vh; */
+            overflow: visible;
+        }
+
+
+        .phone-overlay {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            left: auto;
+            top: auto;
+            transform: none;
+        }
+
+        /* slider sits inside frame screen area */
+        .phone-slider {
+            position: absolute;
+            z-index: 2;
+            top: 6.8%;
+            left: 8.5%;
+            width: 83%;
+            height: 86.2%;
+            overflow: hidden;
+            border-radius: 26px;
+        }
+
+        .phone-slider .slick-list,
+        .phone-slider .slick-track,
+        .phone-slider .slick-slide,
+        .phone-slider .slick-slide>div {
+            height: 100%;
+        }
+
+        .phone-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .phone-slide p {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            margin: 0;
+            text-align: center;
+            color: #fff;
+            z-index: 4;
+        }
+
+        .phone-slide {
+            position: relative;
+        }
+
+        /* footer section */
+        .section-last {
+            /* background: #000; */
+            padding: 80px 20px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+
+        .cta-title {
+            color: #fff;
+            text-shadow: 3px 0 #D3184E;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .cta-subtitle {
+            color: #e0e0e0;
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'TCF-Noli', sans-serif;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+         .bottom-goalpost-div{
+            height: 250px;
+            width:100vw;
+            /* background: #370C8A;
+            background:url('/cg-gamezone/client/public/images/banger/bg-repeat.png'),linear-gradient(90deg,rgba(55, 12, 138, 1) 0%,rgba(57, 14, 138, 1) 4%,rgba(91, 40, 177, 1) 100%);
+            background-repeat: repeat-x; */
+            position: relative;
+            margin-top: -184px;
+            z-index: 4;
+        }
+
+        .bottom-goalpost-bg {
+            position: absolute;
+            inset: 0;
+            background:url('/cg-gamezone/client/public/images/banger/bg-repeat.png'),linear-gradient(90deg, rgba(55, 12, 138, 1) 0%,    rgba(57, 14, 138, 1) 4%,    rgba(91, 40, 177, 1) 100%);
+            background-repeat:repeat-x,no-repeat;
+            background-position:left center,center;
+            clip-path: polygon(0 0, 100% 0, 100% 59%, 0% 84%);
+            z-index: 1;
+        }
+    
+        .bottom-goalpost-div .arc-img {
+            position: absolute;
+            top: -116px;
+            right: 84px;
+            width: clamp(130px, 14vw, 220px);
+            height: auto;
+            z-index: 5;
+            animation: dcFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes dcFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+
+        .hero-section .bottom-goalpost-div p {
+            position: relative;
+            float: right;
+            font-family:'TCF-Noli', sans-serif;
+            color:#FFF;
+            width: 860px;
+            right: 97px;
+            margin: 0;
+            font-size: 30px;
+            text-shadow: 1px 0 #D80D43;
+            overflow-wrap: break-word;
+            top: 24px;
+            text-align: left;
+            z-index: 3;
+        }
+         .hero-bg {
+            width: 100%;
+            display: block;
+            position: relative;
+            z-index: 1;
+            margin-top: -191px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div style="height: 15px; background: #FC7F3A;background: linear-gradient(90deg,rgba(252, 127, 58, 1) 24%, rgba(246, 26, 59, 1) 62%, rgba(246, 10, 60, 1) 97%);">
+    </div>
+
+    <!-- Section 1 -->
+    <section class="section-1">
+        <video autoplay loop muted playsinline>
+            <source src="/cg-gamezone/client/public/images/banger/file.mp4" type="video/mp4">
+        </video>
+
+        <div class="container-fluid overlay-content">
+            <div class="row">
+                <div class="col-md-7 col-sm-6"></div>
+                <div class="col-md-5 col-sm-6">
+                    <div class="right-panel">
+                        <div
+                            style="margin-top: -13px; margin-left: auto; margin-top: -13px; position: relative; right: 30px;">
+                            <img class="logo-img" src="/cg-gamezone/client/public/images/banger/logo.png" width="670"
+                                alt="Banger Logo" />
+                        </div>
+                        <div class="store-icons"
+                            style="margin-left: auto; position: relative; margin-right: 20%; margin-top: 20%;">
+                            <img src="/cg-gamezone/client/public/images/playstore.png" alt="Google Play" />
+                            <img src="/cg-gamezone/client/public/images/app_store_v2.png" alt="App Store" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2-->
+    <section class="hero-section"> 
+        <img class="hero-bg" src="/cg-gamezone/client/public/images/banger/bg2.png" />
+        <div class="moving-object-1"> <img src="/cg-gamezone/client/public/images/banger/ball.png" alt="Ball"> </div>
+        <div class="moving-object-2"> <img src="/cg-gamezone/client/public/images/banger/flying_char.png" alt="Player">
+        </div>
+        <div class="bottom-goalpost-div">
+            <div class="bottom-goalpost-bg"></div>
+            <p >"BANGER" is a fast-paced, 1v1 online arcade football game developed by Chennai Games that focuses on individual player control and timed Events.</p>
+            <img class="arc-img" src="/cg-gamezone/client/public/images/banger/arc.png"/>
+        </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="feature-section-1 feature-clip-a">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-6 reveal reveal-left feature-text">
+                    <h4 style="font-family:'Bebas Neue', sans-serif; font-size: xxx-large; text-shadow: 3px 0 0 #D80D43;letter-spacing: 10px;">PRECISION</h4>
+                    <h5 style="font-family: 'TCF-Noli', sans-serif;letter-spacing: 2px;">Master Every Shot</h5>
+                    <h6 style="font-family: 'TCF-Noli', sans-serif;letter-spacing: 2px;">Bend,Curve and Strike with Accuracy as you outplay your opponent in high pressure penalty
+                        moments.</h6>
+                </div>
+                <div class="col-md-6 reveal reveal-right feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec1.png" /> </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature-section feature-clip-b">
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-7 reveal reveal-left feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec2.png" /> </div>
+                <div class="col-md-5 reveal reveal-right feature-text">
+                    <h4 style="font-family:'Bebas Neue', sans-serif; font-size: xxx-large; text-shadow: 3px 0 0 #D80D43;letter-spacing: 10px;">REFLEX</h4>
+                    <h5 style="font-family: 'TCF-Noli', sans-serif;letter-spacing: 2px;">Defend like a Pro</h5>
+                    <h6 style="font-family: 'TCF-Noli', sans-serif;letter-spacing: 2px;">Switch roles and become the goal keeper aniticipate,react and block every incoming shot to stay
+                        a head</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+            
+    <section class="feature-section" style="margin: -30px 0 30px; ">
+        <div class="gallery-layout">
+        <div class="gradient-div"></div>
+        <div class="container-fluid">
+            <div class="row feature-row">
+                <div class="col-md-5 reveal reveal-left feature-text">
+                    <h4 style="font-family:'Bebas Neue', sans-serif; font-size: xxx-large; text-shadow: 3px 0 0 #D80D43;letter-spacing: 10px;">Duel</h4>
+                    <h5 style="font-family: 'TCF-Noli', sans-serif;letter-spacing: 2px;">Win the Face off</h5>
+                    <h6 style="font-family: 'TCF-Noli', sans-serif;letter-spacing: 2px;">Take turns to shoot and defend in intense 1 v 1 battles where every goal counts towards victory.
+                    </h6>
+                </div>
+                <div class="col-md-7 reveal reveal-right feature-image-wrap"> <img
+                        src="/cg-gamezone/client/public/images/banger/sec3.png" /> </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Section 4 -->
+
+    <section class="character-stage">
+        <div class="gallery-layout-player">
+            <div class="gradient-div-player"></div>
+            <div class="image-div-player" style="background-image: url('/cg-gamezone/client/public/images/banger/1.jpg');">
+                <div class="container-fluid">
+                    <div class="row gallery-overlay">
+                     <img class="spotlight-img" src="/cg-gamezone/client/public/images/banger/light.png" />
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 37px 0px 0px 45px;">
+                            <div class="character-container">
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char1.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char3.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char4.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char5.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char6.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <p
+            style="float: right; right: 6%; z-index: 2; font-size: 80px; top:3%; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; font-family:'Bebas Neue', sans-serif; text-shadow: 6px 0 0 #D80D43;letter-spacing: 10px;">
+            PLAYER&nbsp;</p>
+        <p
+            style="float: right; right: 6%; z-index: 2; font-size: 80px; top:11%; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; font-family:'Bebas Neue', sans-serif; text-shadow: 6px 0 0 #D80D43;letter-spacing: 10px;">
+            GALLERY</p>
+    </section>
+
+    <!-- Section 5 -->
+
+     <section>
+        <p
+            style="font-family:'Bebas Neue', sans-serif; float: left; font-size: 80px; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; z-index: 1; text-shadow: 6px 0 0 #D80D43;letter-spacing: 10px; text-align: center; padding-left: 20px">
+            STADIUM GALLERY </p>
+        <div class="slider-container feature-clip-slider">
+            <div class="slide">
+                <img src="/cg-gamezone/client/public/images/banger/1.jpg" />
+            </div>
+            <div class="slide">
+                <img src="/cg-gamezone/client/public/images/banger/2.jpg" />
+            </div>
+            <div class="slide" >
+                <img src = "/cg-gamezone/client/public/images/banger/3.jpg"/>
+            </div>
+            <div class="slide" >
+                <img src = "/cg-gamezone/client/public/images/banger/4.jpg"/>
+            </div>
+            <div class="slide" >
+                <img src = "/cg-gamezone/client/public/images/banger/5.jpg"/>
+            </div>
+            <div class="slide">
+                <img src="/cg-gamezone/client/public/images/banger/6.jpg" />
+            </div>
+            <div class="slide">
+                <img src="/cg-gamezone/client/public/images/banger/7.jpg" />
+            </div>
+            <div class="slide">
+                <img src="/cg-gamezone/client/public/images/banger/8.jpg" />
+            </div>
+            
+        </div>
+
+    </section>
+
+
+    <!-- Section 6 -->
+    <section class="" style="background: #000; clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 87%);">
+        <div class="container-fluid">
+            <h3 class="text-center"
+                style="font-family:'Bebas Neue', sans-serif;color:#fff; margin-bottom: 24px; margin-top: 130px; font-size: 80px; -webkit-text-stroke: 1px #A18FBF;text-shadow: 6px 0 0 #D80D43;letter-spacing: 10px;">
+                GAME SCREENSHOTS</h3>
+            <div class="row" style="margin-bottom: 150px;">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="phone-slider-wrapper">
+                        <div class="phone-slider">
+                            <div class="phone-slide">
+                                <img src="/cg-gamezone/client/public/images/banger/Media 1.jpg" alt="Ice Land">
+                                <p>Ice Land</p>
+                            </div>
+                            <div class="phone-slide">
+                                <img src="/cg-gamezone/client/public/images/banger/Media 2.jpg" alt="Taj Mahal">
+                                <p>Taj Mahal</p>
+                            </div>
+                            <div class="phone-slide">
+                                <img src="/cg-gamezone/client/public/images/banger/Media 3.jpg" alt="Tower Bridge">
+                                <p>Tower Bridge</p>
+                            </div>
+                        </div>
+                        <img class="phone-overlay" src="/cg-gamezone/client/public/images/banger/screen.png"
+                            alt="Phone Frame">
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="section-last">
+        <div>
+            <img src="/cg-gamezone/client/public/images/banger/logo.png"
+                style="display: block;margin-left: auto; margin-right: auto; width: 50%;" />
+        </div>
+
+        <div class="container-fluid">
+            <h2 class="cta-title">Can You Handle The Perfect Shot?</h2>
+            <p class="cta-subtitle">Download BANGER now !</p>
+            <div class="cta-buttons">
+                <a class="wow fadeInLeft"
+                    href="https://play.google.com/store/apps/details?id=com.chennaigames.rush21.blackjack"
+                    target="_blank"><img alt="Get it on Google Play"
+                        src="/cg-gamezone/client/public/images/playstore.avif" style="max-width: 200px;"></a>
+                <a class="wow fadeInLeft" href="https://apps.apple.com/us/app/id6758206291" target="_blank"><img
+                        alt="Get it on Google Play" src="/cg-gamezone/client/public/images/app_store_v2.avif"
+                        style="max-width: 200px;"></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+
+        //slick js }
+
+        $(document).ready(function () {
+            $('.slider-container').slick({
+                dots: false,
+                arrows: true,
+                speed: 300,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 2300
+            });
+
+            $('.phone-slider').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                speed: 700,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 1800,
+                pauseOnHover: false,
+                focusOnSelect: false
+            });
+            $('.character-container').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                centerMode: false,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                speed: 900,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                focusOnSelect: true,
+                waitForAnimate: false,
+                cssEase: 'ease-out',
+            });
+
+            function alignSpotlightToActiveCharacter() {
+                const $stage = $('.character-stage');
+                const $spotlight = $stage.find('.spotlight-img');
+                const $currentImg = $stage.find('.character-container .slick-current img');
+
+                if (!$stage.length || !$spotlight.length || !$currentImg.length) return;
+
+                const stageRect = $stage[0].getBoundingClientRect();
+                const currentRect = $currentImg[0].getBoundingClientRect();
+                const currentCenterX = (currentRect.left + currentRect.right) / 2;
+                const relativeX = currentCenterX - stageRect.left;
+
+                $spotlight.css('left', relativeX + 'px');
+            }
+
+            alignSpotlightToActiveCharacter();
+            $('.character-container').on('init setPosition afterChange', function () {
+                alignSpotlightToActiveCharacter();
+            });
+            $(window).on('resize', function () {
+                alignSpotlightToActiveCharacter();
+            });
+        });
+
+        // moving script.
+        const object1 = document.querySelector('.moving-object-1');
+        const object2 = document.querySelector('.moving-object-2');
+        const heroSection = document.querySelector('.hero-section');
+        // const MAX_MOVE = 250; // 👈 stopping point
+
+        function handleScroll() {
+            // Disable movement on mobile
+            if (window.innerWidth <= 768) {
+                object1.style.transform = 'translateY(-50%)';
+                object2.style.transform = 'translateY(-50%)';
+                return;
+            }
+
+            const rect = heroSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Run only when hero section is visible
+            if (rect.top < windowHeight && rect.bottom > 0) {
+
+                // Convert section position to progress (0 → 1)
+                let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+
+                // Clamp (prevent overflow)
+                progress = Math.max(0, Math.min(1, progress));
+
+                // Control speed here
+                // const moveX = progress * 600;
+
+                //  STOP at limit
+                // moveX = Math.min(moveX, MAX_MOVE);
+                let moveX = Math.min(progress * 600, 234);
+
+                // Apply movement
+                object1.style.transform = `translate(${moveX}px, -50%)`;
+                object2.style.transform = `translate(-${moveX}px, -50%)`;
+            }
+        }
+
+        // Listen scroll
+        window.addEventListener('scroll', handleScroll);
+
+        handleScroll();
+
+        const revealItems = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealItems.forEach((item) => observer.observe(item));
+
+    </script>
+
+</body>
+
+</html>

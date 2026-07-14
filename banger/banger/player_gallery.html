@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLAY GALLERY Fix</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+        @font-face {
+            font-family: 'TCF-Noli';
+            src: url('./fonts/tcf-noli-black-maisfontes.80c5/tcf-noli-black.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .feature-clip-slider {
+            clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0 85%);
+            background: #600202;
+        }
+
+        .gallery-overlay {
+            /* position: relative; */
+            height: 100vh;
+            /* top: 5%; */
+            /* bottom: 0; */
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.5);
+            /* Black see-through */
+            color: #f1f1f1;
+            /* width: 100%; */
+            opacity: 0;
+            color: white;
+            font-size: 20px;
+            padding: 20px;
+            text-align: center;
+            opacity: 1;
+        }
+
+        .character-container {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            margin-top: 0;
+        }
+
+        .character-stage {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .scene-dark {
+            position: absolute;
+            inset: 0;
+            background: rgba(8, 25, 30, 0.58);
+            z-index: 1;
+        }
+
+        .scene-cone {
+            position: absolute;
+            left: 28%;
+            top: 0;
+            width: 56vw;
+            height: 100%;
+            background: rgba(180, 190, 188, 0.28);
+            clip-path: polygon(35% 0, 65% 0, 100% 100%, 0 100%);
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .spotlight-img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateX(-50%);
+            /* width: clamp(260px, 35vw, 560px); */
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .character-container .slick-list {
+            overflow: visible;
+        }
+
+        .character-container .slick-track {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .character-container .slick-slide {
+            transform: scale(0.9);
+            transition: transform 0.6s ease;
+            padding: 0 10px;
+        }
+
+        .character-container .slick-slide>div {
+            position: relative;
+        }
+
+        .character-container .slick-slide img {
+            filter: brightness(0.15);
+            transition: all 0.8s ease-in-out;
+            width: 100%;
+            max-width: 490px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .character-container .slick-slide>div::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .character-container .slick-current {
+            transform: scale(1.08);
+            z-index: 3;
+        }
+
+        .character-container .slick-current img {
+            filter: brightness(1);
+        }
+
+        .character-container .slick-current>div::after {
+            opacity: 0;
+        }
+
+
+        .gallery-layout-player {
+            /* position: relative; */
+            /* width: min(1200px, 96vw); */
+            /* height: 420px; */
+            /* margin: 14px auto 0; */
+            /* z-index: 3; */
+            font-family: 'font-family:'TCF-Noli', sans-serif;';
+        }
+
+        .gradient-div-player,
+        .image-div-player {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 0% 100%);
+
+        }
+
+        .gradient-div-player {
+            background: #3F5EFB;
+            background: linear-gradient(
+            90deg,
+            #4b2a8f 0%,
+            #FA513B 20%,
+            #c72c7a 40%,
+            #F60A3C 60%,
+            #A22A8F 80%,
+            #4b2a8f 100%
+            );
+            z-index: 1;
+        }
+
+        .image-div {
+            background: rgba(15, 9, 24, 0.62);
+            clip-path:polygon(0 0, 100% 0, 100% 100%, 100% 84%, 0 98%);
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    <section class="character-stage">
+        <div class="gallery-layout-player">
+            <div class="gradient-div-player"></div>
+            <div class="image-div-player" style="background-image: url('/cg-gamezone/client/public/images/banger/1.jpg');">
+                <div class="container-fluid">
+                    <div class="row gallery-overlay">
+                     <img class="spotlight-img" src="/cg-gamezone/client/public/images/banger/light.png" />
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 37px 0px 0px 45px;">
+                            <div class="character-container">
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char1.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char2.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char3.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char4.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char5.png" />
+                                </div>
+                                <div>
+                                    <img src="/cg-gamezone/client/public/images/banger/char6.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <p
+            style="float: right; right: 6%; z-index: 2;font-weight: 700; font-size: 58px; top:3%; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; font-family:'TCF-Noli', sans-serif;">
+            PLAYER&nbsp;</p>
+        <p
+            style="float: right; right: 6%; z-index: 2;font-weight: 700; font-size: 58px; top:9%; position:absolute; color:#fff; -webkit-text-stroke: 0.5px #B294e3; font-family:'TCF-Noli', sans-serif;">
+            GALLERY</p>
+    </section>
+
+
+    <script>
+
+
+        //slick js }
+
+        $(document).ready(function () {
+            $('.slider-container').slick({
+                dots: false,
+                arrows: false,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 2200
+            });
+
+            $('.phone-slider').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                speed: 700,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 1800,
+                pauseOnHover: false,
+                focusOnSelect: false
+            });
+            $('.character-container').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                centerMode: false,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                speed: 900,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                focusOnSelect: true,
+                waitForAnimate: false,
+                cssEase: 'ease-out',
+            });
+
+            function alignSpotlightToActiveCharacter() {
+                const $stage = $('.character-stage');
+                const $spotlight = $stage.find('.spotlight-img');
+                const $currentImg = $stage.find('.character-container .slick-current img');
+
+                if (!$stage.length || !$spotlight.length || !$currentImg.length) return;
+
+                const stageRect = $stage[0].getBoundingClientRect();
+                const currentRect = $currentImg[0].getBoundingClientRect();
+                const currentCenterX = (currentRect.left + currentRect.right) / 2;
+                const relativeX = currentCenterX - stageRect.left;
+
+                $spotlight.css('left', relativeX + 'px');
+            }
+
+            alignSpotlightToActiveCharacter();
+            $('.character-container').on('init setPosition afterChange', function () {
+                alignSpotlightToActiveCharacter();
+            });
+            $(window).on('resize', function () {
+                alignSpotlightToActiveCharacter();
+            });
+        });
+
+        // moving script.
+        const object1 = document.querySelector('.moving-object-1');
+        const object2 = document.querySelector('.moving-object-2');
+        const heroSection = document.querySelector('.hero-section');
+        // const MAX_MOVE = 250; // 👈 stopping point
+
+        function handleScroll() {
+            // Disable movement on mobile
+            if (window.innerWidth <= 768) {
+                object1.style.transform = 'translateY(-50%)';
+                object2.style.transform = 'translateY(-50%)';
+                return;
+            }
+
+            const rect = heroSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Run only when hero section is visible
+            if (rect.top < windowHeight && rect.bottom > 0) {
+
+                // Convert section position to progress (0 → 1)
+                let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+
+                // Clamp (prevent overflow)
+                progress = Math.max(0, Math.min(1, progress));
+
+                // Control speed here
+                // const moveX = progress * 600;
+
+                //  STOP at limit
+                // moveX = Math.min(moveX, MAX_MOVE);
+                let moveX = Math.min(progress * 600, 234);
+
+                // Apply movement
+                object1.style.transform = `translate(${moveX}px, -50%)`;
+                object2.style.transform = `translate(-${moveX}px, -50%)`;
+            }
+        }
+
+        // Listen scroll
+        window.addEventListener('scroll', handleScroll);
+
+        handleScroll();
+
+        const revealItems = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealItems.forEach((item) => observer.observe(item));
+
+    </script>
+
+</body>
+
+</html>
