@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Parallax Fix</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.content-section {
+    /* height: 200vh; */
+    background: linear-gradient(180deg, #000 0%, #1a1a2e 50%, #16213e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-section h1 {
+    color: white;
+    font-size: 3rem;
+}
+
+.hero-section {
+    height: 100vh;
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.moving-object-1 {
+    left: 350px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 60%;
+    will-change: transform;
+}
+
+.moving-object-2 {
+    right: 50px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    will-change: transform;
+}
+
+.moving-object-1 img,
+.moving-object-2 img {
+    width: 250px;
+}
+header {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+}
+@media (max-width: 768px) {
+    .moving-object-1 {
+        left: 50px;
+        transform: translateY(-50%) !important;
+    }
+    .moving-object-2 {
+        right: 50px;
+        transform: translateY(-50%) !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>My Header</h1>
+</header>
+
+<!-- Section 1 -->
+<section class="content-section">
+    <video autoplay loop>
+        <source src="file.mp4" type="video/mp4">
+    </video>
+</section>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="moving-object-1">
+        <img src="HeroShoot_ball.avif" alt="Ball">
+    </div>
+    <div class="moving-object-2">
+        <img src="Player and Smoke Combined.avif" alt="Player">
+    </div>
+</section>
+
+<!-- Section 3 -->
+<section class="" style="height: 200vh;">
+    <h1>Scroll More</h1>
+    <img src="file.mp4" alt="vedio loaded"/>
+    <video>
+        <source src="file.mp4" type="video/mp4">
+        <source/>
+    </video>
+</section>
+
+<script>
+const object1 = document.querySelector('.moving-object-1');
+const object2 = document.querySelector('.moving-object-2');
+const heroSection = document.querySelector('.hero-section');
+
+function handleScroll() {
+    // Disable movement on mobile
+    if (window.innerWidth <= 768) {
+        object1.style.transform = 'translateY(-50%)';
+        object2.style.transform = 'translateY(-50%)';
+        return;
+    }
+
+    const rect = heroSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Run only when hero section is visible
+    if (rect.top < windowHeight && rect.bottom > 0) {
+
+        // Convert section position to progress (0 → 1)
+        let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+
+        // Clamp (prevent overflow)
+        progress = Math.max(0, Math.min(1, progress));
+
+        // Control speed here
+        const moveX = progress * 600;
+
+        // Apply movement
+        object1.style.transform = `translate(${moveX}px, -50%)`;
+        object2.style.transform = `translate(-${moveX}px, -50%)`;
+    }
+}
+
+// Listen scroll
+window.addEventListener('scroll', handleScroll);
+
+handleScroll();
+</script>
+
+</body>
+</html>

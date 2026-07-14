@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Email Preview</title>
+</head>
+
+<body  style="margin: 0; padding: 0; background-color: #121212; font-family: Arial, sans-serif; color: #ffffff;">
+    <div class="init"></div>
+
+    <script>
+
+        // =======================
+        // DUMMY DATA
+        // =======================
+
+        const data = {
+            user_name: "Annamalai",
+
+            tournaments: [
+                {
+                    img: "data:image/png;base64,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",
+                    title: "Chess Showdown",
+                    duration: "10-04-2026 - 12:00 AM IST to 12-04-2026 - 11:59 pm IST",
+                    join_url: "https://cges.club/tournament/1/16"
+                },
+                {
+                    img: "https://cges.club/assets/mrracer-CDfFvZF7.png",
+                    title: "Mr Racer",
+                    duration: "10-04-2026 - 12:00 AM IST to 12-04-2026 - 11:59 pm IST",
+                    join_url: "https://cges.club/tournament/4/16"
+                },
+                {
+                    img: "https://cges.club/assets/cr-BYz0jsN-.png",
+                    title: "Clash Royale",
+                    duration: "10-04-2026 - 12:00 AM IST to 12-04-2026 - 11:59 pm IST",
+                    join_url: "https://cges.club/tournament/3/16"
+                },
+                {
+                    img: "https://cges.club/assets/xo-Cwx9TGLU.png",
+                    title: "XO Blast",
+                    duration: "10-04-2026 - 12:00 AM IST to 12-04-2026 - 11:59 pm IST",
+                    join_url: "https://cges.club/tournament/2/16"
+                }
+            ],
+
+            current_month: "April 2026",
+
+            mvp_rewards:
+                [
+                    { src: 'https://d2r5hrlw4m5nor.cloudfront.net/mvp/mar_26/1.jpg', title: " Amazon Gift Card", sub_title: "Worth Rs.1000" },
+                    { src: 'https://d2r5hrlw4m5nor.cloudfront.net/mvp/mar_26/2.jpg', title: " Steam Gift Card", sub_title: "Worth Rs.500" },
+                    { src: 'https://d2r5hrlw4m5nor.cloudfront.net/mvp/mar_26/3.jpg', title: " Google Play Gift Card", sub_title: "Worth Rs.250" },
+                ],
+
+            mvp_players: [
+                { rank: 1, name: "Michael", points: 1200 },
+                { rank: 2, name: "Cheta kali", points: 950 },
+                { rank: 3, name: "Fire Babu", points: 800 }
+            ]
+        };
+
+
+        // =======================
+        // TEMPLATE FUNCTION
+        // =======================
+
+        function EmailTemplate(data) {
+
+            // TOURNAMENT HTML
+            let tournamentHTML = "";
+
+            if (data.tournaments.length > 0) {
+                tournamentHTML = data.tournaments.map(t => `
+                    <tr style="border-bottom:1px solid #333;">
+                        <td  align="center" valign="middle" style="padding:10px;">
+                            <img src="${t.img}" width="60"
+                            style="
+                            display:block;
+                            border-radius:4px;
+                            "
+                            onerror="this.src='https://placehold.co/80x80?text=tournament_image';"
+                            >
+                        </td>
+                        <td style="padding:10px 5px; border-left:1px solid #2a2a2a;
+                                             border-bottom:1px solid #2a2a2a;">
+                            <p style="margin:0; font-weight:bold; color:#fff; text-align:left;">${t.title || "CGES.CLUB Tournament"}</p>
+                            <p style="margin:5px 0; font-size:14px; color:#aaa;">⏱ ${t.duration || "Every Week"}</p>
+                        </td>
+                        <td align="right" style=" border-left:1px solid #2a2a2a;
+                            border-bottom:1px solid #2a2a2a;">
+                            <a href="${t.join_url || "https://cges.club"}"
+                                style="background:#FF810E; color:#fff; padding:8px 12px; text-decoration:none; border-radius:4px; font-size:12px; font-weight:bold;">
+                                JOIN
+                            </a>
+                        </td>
+                    </tr>
+                `).join('');
+            } 
+            else {
+                tournamentHTML = `<p style="color:#888;">Explore our tournaments and start playing.</p> <a href="https://cges.club/tournaments" 
+   style="display:inline-block; padding:10px 20px; background:#FF810E; color:#fff; text-decoration:none; border-radius:5px;">
+   JOIN NOW
+</a>`;
+            }
+
+
+            // MVP HTML
+            let mvpHTML = "";
+
+            if (data.mvp_players.length > 0) {
+                mvpHTML = `
+                                <h5 style="color:#FF810E;margin-bottom:8px;">
+                                    🔥 Top players dominating this month
+                                </h5>
+                                <table width="100%" cellpadding="12" 
+                                    style="border:1px solid #2a2a2a; border-collapse:collapse;">
+
+                                    <tr style="background:#161616;">
+                                        <th align="left" style="color:#aaa; font-size:14px;">Rank</th>
+                                        <th align="left" style="color:#aaa; font-size:14px;">Player</th>
+                                        <th align="right" style="color:#aaa; font-size:14px;">Points</th>
+                                    </tr>
+
+                                    ${data.mvp_players.map((p, i) => {
+
+                                         let badge = ["🥇", "🥈", "🥉"][i];
+
+                                        return `
+                                        <tr style="border-top:1px solid #2a2a2a;">
+                                            <td style="font-size:16px;">${badge}</td>
+                                            <td style="font-weight:bold; color:#fff; max-width:50px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">${p.name || "Player" + [i]}</td>
+                                            <td align="right" style="color:#FF810E; font-weight:bold;">
+                                                ${p.points || [i]}
+                                            </td>
+                                        </tr>
+                                        `;
+                                    }).join('')}
+
+                                </table>
+    `;
+            } else {
+                mvpHTML ;
+            }
+
+            // MVP REWARDS 
+            let MVP_REWARDS = "";
+
+            if (data.mvp_rewards.length > 0) {
+                MVP_REWARDS = `
+                        ${data.mvp_rewards.map(reward => `
+                            <td>
+                                <div style="width:150px; height:150px; margin:auto;">
+                                <img src="${reward.src}" width="100%"
+                                    style="max-width:150px; border-radius:5px; object-fit:cover;"
+                                    onerror="this.src='https://placehold.co/150x150?text=MVP';"
+                                    alt="MVP Reward">
+                                </div>
+                                <p style="margin:8px 0 2px 0; font-size:14px; color:#fff; text-align:center;">    ${reward.title || "MVP reward"}</p>
+                                <p style="margin:0; font-size:12px; color:#aaa; text-align:center;">${reward.sub_title || "MVP reward"}</p>
+                            </td>
+                            `).join('')}
+                                   `
+            }
+            else{
+                MVP_REWARDS = `<p style="color:#888;">Check our current month reward in CGES.CLUB. </p>`
+            }
+
+
+            return `
+           <!DOCTYPE html>
+                <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Tournament Remainder! - CGES.CLUB</title>
+                        </head>
+                        <body style="margin: 0; padding: 0; background-color: #121212; font-family: Arial, sans-serif; color: #ffffff;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+                                <tr>
+                                    <td align="center">
+
+                                        <table width="600" style="background:#1e1e1e; border-radius:8px; padding:20px;">
+
+                                            <!-- HEADER -->
+                                                <tr>
+                                                    <td align="left" style="background-color: #161616; padding: 20px; display: flex; align-items: center;">
+                                                        <img src="https://cges-club.s3.ap-south-1.amazonaws.com/assets/email/logo.png" alt="CGES Logo" width="200" style="vertical-align: middle;">
+                                                    </td>
+                                                </tr>
+                                            <!-- BANNER -->
+                                            <tr>
+                                                <td align="center">
+                                                    <br>
+                                                    <img src="https://cges-club.s3.ap-south-1.amazonaws.com/assets/email/reminder.png"
+                                                        width="60%">
+                                                </td>
+                                            </tr>
+
+                                            <!-- TITLE -->
+                                            
+                                            <tr>
+                                                <td align="center" style="padding:20px;">
+                                                    <h1 style="color: #FF810E;">Hey <span style="color:#ccc;display:inline-block;max-width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;vertical-align:bottom;">  ${data.user_name} !</span> </h1>
+
+                                                    <h3 style="color:#FF810E; margin-bottom:10px;">
+                                                    🔥A New Tournament Has Started! 
+                                                    </h3>
+
+                                                    <p style="color:#ccc; font-size:14px; margin:0;">
+                                                        <!--Tournaments are now <b style="color:#ff810e;">LIVE</b>. -->
+                                                        Join now, compete with top players, and win exciting rewards !
+                                                    </p>
+
+                                                   <!-- <p style="color:#aaa; font-size:14px; margin-top:10px;">
+                                                        Don’t miss your chance to win exclusive rewards and MVP recognition.
+                                                    </p> -->
+                                                </td>
+                                            </tr>
+
+                                            <!-- TOURNAMENT -->
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                    <h3 style="color:#FF810E;">🎮 Live Tournaments</h3>
+                                                        <p style="color:#aaa; font-size:14px; margin-bottom:10px;">
+                                                            Join now before the competition gets tougher.
+                                                        </p>
+                                                    <table width="100%" cellpadding="12" cellspacing="0" style="border:1px solid  #2a2a2a; background:#121212;border-collapse:collapse;">
+                                                        ${tournamentHTML}
+                                                        
+                                                    </table>
+                                                </td>
+                                            </tr>
+
+                                            <!-- MVP -->
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                    <h3 style="color:#FF810E;">${data.current_month} - MVP Rewards.</h3>
+                                                    <p style="color:#ccc; font-size:14px; margin-bottom:10px;">
+                                                        Play more. Win more. The top 3 players this month unlock these exclusive rewards. 
+                                                    </p>
+                                                    <table width="100%" cellpadding="10" style=" ${data.mvp_rewards.length >0 ? "background-color:#0f0f0f; border-radius:10px; padding:10px; box-shadow:inset 0 2px 2px rgba(255,255,255,0.06),inset 0 -3px 3px rgba(0,0,0,0.6),0 8px 14px rgba(89,89,89,0.8)" : null }>
+                                                        <tr valign="top" align="center" style="width:33%;">
+                                                            ${MVP_REWARDS}
+                                                        </tr>
+                                                    </table>
+                                                    <br>
+                                                    ${mvpHTML}
+                                                </td>
+                                            </tr>
+
+                                            <!-- CTA -->
+                                            <tr>
+                                                <td align="center" style="padding:20px;">
+                                                    <a href="https://cges.club/tournaments"
+                                                        style="background:#FF810E; padding:12px 24px; color:#fff; text-decoration:none; border-radius:5px;">
+                                                        Join & Compete Now
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <p style="color:#aaa; font-size:15px; margin-top:10px;">
+                                                        Don’t miss your chance to win exclusive rewards and MVP recognition.
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Footer -->
+                                                                    <tr>
+                                                <td align="center" style="background-color: #181818; padding: 20px; font-size: 14px; color: #cccccc;">
+                                                    &copy; 2025 CGES.CLUB All Rights Reserved. <br><br>
+                                                    
+                                                    <table role="presentation" cellspacing="0" cellpadding="5">
+                                                        <tr align="center">
+                                                            <td>
+                                                                <a href="https://www.twitch.tv/cges_club" target="_blank">
+                                                                    <img src="https://cges-club.s3.ap-south-1.amazonaws.com/assets/email/twitch.png" width="24" alt="Twitch">
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="https://discord.gg/s9A8EBFXpb" target="_blank">
+                                                                    <img src="https://cges-club.s3.ap-south-1.amazonaws.com/assets/email/discord.png" width="24" alt="Discord">
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="https://www.youtube.com/channel/UCuI03JhLpF4Bb6EZ-AWqPfg" target="_blank">
+                                                                    <img src="https://cges-club.s3.ap-south-1.amazonaws.com/assets/email/youtube.png" width="24" alt="YouTube">
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="https://www.linkedin.com/company/cges-club/" target="_blank">
+                                                                    <img src="https://cges-club.s3.ap-south-1.amazonaws.com/assets/email/linkedin.png" width="24" alt="LinkedIn">
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                    <br>
+                                                    <a href="https://cges.club/terms-and-conditions" style="color: #FF810E; text-decoration: none;">Terms & Conditions</a> | 
+                                                    <a href="https://cges.club/privacy-policy" style="color: #FF810E; text-decoration: none;">Privacy Policy</a>
+                                                    <br><br>
+                                                    <small>Need help? <a href="mailto:support@cges.club" style="color: #FF810E; text-decoration: none;">Contact Support</a></small> <br><br>
+                                                    <a href=http://localhost:5173/newsletter?action=${encodeURIComponent("unsubscribe")}&email=${encodeURIComponent('sundar@chennaigames.com')} style="color: #ccc; text-decoration: none;">unsubscribe</a>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </body>
+
+                </html>
+`;
+        }
+
+
+        // =======================
+        // RENDER
+        // =======================
+
+        document.querySelector('.init').innerHTML = EmailTemplate(data);
+
+        const preview = window.open();
+        preview.document.write(EmailTemplate(data));
+        preview.document.close();
+
+    </script>
+
+</body>
+
+</html>

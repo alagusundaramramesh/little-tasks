@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Issue Progress Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    .progress-container {
+      width: 100%;
+      background: #e0e0e0;
+      height: 25px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #4caf50;
+      transition: width 0.3s ease;
+    }
+
+    #claimBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    #count {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Issue Completion Progress</h2>
+
+  <div class="progress-container">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <button onclick="completeIssue()">Complete Issue</button>
+  <button id="claimBtn" onclick="claimReward()" disabled>Claim Reward</button>
+
+  <div id="count">Issues Completed: 0</div>
+
+  <script>
+    let issueCount = 0;
+
+    function updateProgress() {
+      const progressPercent = (issueCount % 5) * 20;
+      document.getElementById("progressBar").style.width = progressPercent + "%";
+
+      const canClaim = issueCount % 5 === 0 && issueCount !== 0;
+      document.getElementById("claimBtn").disabled = !canClaim;
+
+      document.getElementById("count").textContent = "Issues Completed: " + issueCount;
+    }
+
+    function completeIssue() {
+      issueCount++;
+      updateProgress();
+    }
+
+    function claimReward() {
+      alert("Reward claimed for 5 completed issues!");
+      // Reset progress (but issueCount continues to accumulate)
+      updateProgress();
+    }
+
+    // Initialize on load
+    updateProgress();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INfinite Scroll</title>
+</head>
+<body>
+    <div id="container" style="width: 400px; height: 300px; border: 2px solid red; overflow: scroll;">
+        <ul id="list">
+            <li>
+
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let page_number = 1;
+    function initial_api_call() {
+        try {
+            let data = fetch(`https://api.github.com/repositories/1300192/issues?page=${page_number}`).then((res)=>{
+                let data = res.json().then((final)=>{
+                // console.log("data",final);
+                    final.forEach(element => {
+                        console.log(element.id);
+                        let container = document.getElementById('list');
+                        let list = document.createElement('li');
+                        list.textContent = element.title;
+                        container.appendChild(list);
+                    });
+                }).catch((e)=>{
+                    console.log("error");
+                });
+            }).catch((e)=>{
+                console.log(e);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    let container = document.getElementById('container');
+    // clientHeight - total height of div
+    // scrolltop - how much pixel you will scroll in the div to reach the bottom
+    // scrollheight - total height of the content. 
+    container.onscroll=()=>{
+        if(Math.ceil(container.clientHeight 
+            + container.scrollTop)>=
+            container.scrollHeight){
+                page_number++;
+                initial_api_call();
+            }
+    }
+    window.onload =initial_api_call;
+</script>
+</html>

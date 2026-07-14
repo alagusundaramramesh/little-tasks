@@ -1,0 +1,210 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=DM+Sans:wght@400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  .addr-root{font-family:'DM Sans',sans-serif;background:#0d0f14;color:#e2e8f0;min-height:580px;border-radius:16px;overflow:hidden;padding:24px}
+  .addr-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .addr-logo{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:#f0c040;letter-spacing:1px}
+  .addr-logo span{color:#fff}
+  .addr-subtitle{font-size:13px;color:#8892a4;margin-top:2px}
+  .add-btn{background:#f0c040;color:#0d0f14;border:none;border-radius:10px;padding:9px 18px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s,transform .1s}
+  .add-btn:hover{background:#ffd84d}
+  .add-btn:active{transform:scale(0.97)}
+  .addr-list{display:flex;flex-direction:column;gap:12px}
+  .addr-card{background:#181c26;border:1.5px solid #252a38;border-radius:14px;padding:16px 18px;position:relative;transition:border-color .15s}
+  .addr-card.default-card{border-color:#f0c04055}
+  .addr-card:hover{border-color:#f0c04033}
+  .addr-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .addr-label-row{display:flex;align-items:center;gap:8px}
+  .addr-type-badge{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:.5px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+  .badge-home{background:#f0c04022;color:#f0c040;border:1px solid #f0c04044}
+  .badge-work{background:#4ade8022;color:#4ade80;border:1px solid #4ade8044}
+  .badge-other{background:#60a5fa22;color:#60a5fa;border:1px solid #60a5fa44}
+  .default-tag{font-size:11px;background:#f0c04018;color:#f0c040;border:1px solid #f0c04040;border-radius:20px;padding:2px 9px;font-weight:500}
+  .addr-name{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-top:6px}
+  .addr-line{font-size:13px;color:#8892a4;margin-top:3px;line-height:1.5}
+  .addr-phone{font-size:13px;color:#8892a4;margin-top:4px;display:flex;align-items:center;gap:5px}
+  .addr-actions{display:flex;gap:6px;flex-shrink:0}
+  .icon-btn{background:#252a38;border:1px solid #323848;color:#8892a4;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;font-size:15px}
+  .icon-btn:hover{background:#2e3446;color:#e2e8f0}
+  .icon-btn.danger:hover{background:#3d1a1a;color:#f87171;border-color:#7f2a2a}
+  .set-default-btn{font-size:11px;color:#8892a4;background:none;border:none;cursor:pointer;margin-top:8px;padding:0;display:flex;align-items:center;gap:4px;transition:color .15s}
+  .set-default-btn:hover{color:#f0c040}
+  .divider{height:1px;background:#252a38;margin:16px 0}
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;display:none}
+  .modal-overlay.open{display:flex}
+  .modal{background:#181c26;border:1.5px solid #323848;border-radius:16px;padding:24px;width:360px;max-width:95%}
+  .modal-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .modal-title span{color:#f0c040}
+  .form-group{margin-bottom:14px}
+  .form-label{font-size:12px;color:#8892a4;margin-bottom:5px;display:block;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+  .form-input{width:100%;background:#0d0f14;border:1.5px solid #323848;border-radius:9px;color:#e2e8f0;padding:9px 12px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+  .form-input:focus{border-color:#f0c040}
+  .form-select{width:100%;background:#0d0f14;border:1.5px solid #323848;border-radius:9px;color:#e2e8f0;padding:9px 12px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;appearance:none}
+  .form-select:focus{border-color:#f0c040}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .modal-footer{display:flex;gap:10px;margin-top:20px}
+  .btn-cancel{flex:1;background:none;border:1.5px solid #323848;color:#8892a4;border-radius:10px;padding:10px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .15s}
+  .btn-cancel:hover{background:#252a38;color:#e2e8f0}
+  .btn-save{flex:2;background:#f0c040;color:#0d0f14;border:none;border-radius:10px;padding:10px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .15s}
+  .btn-save:hover{background:#ffd84d}
+  .empty-state{text-align:center;padding:48px 20px;color:#8892a4}
+  .empty-icon{font-size:40px;margin-bottom:12px;color:#323848}
+  .empty-title{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+</style>
+<h2 class="sr-only">Multi-address manager — add, edit, and set a default delivery address</h2>
+<div class="addr-root">
+  <div class="addr-header">
+    <div>
+      <div class="addr-logo">CGES<span>.CLUB</span></div>
+      <div class="addr-subtitle">My Saved Addresses</div>
+    </div>
+    <button class="add-btn" onclick="openModal()"><i class="ti ti-plus" aria-hidden="true"></i> Add Address</button>
+  </div>
+  <div class="addr-list" id="addrList"></div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title"><i class="ti ti-map-pin" aria-hidden="true"></i> <span id="modalTitleText">New</span> Address</div>
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input class="form-input" id="fName" placeholder="e.g. Arjun Kumar" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Address Type</label>
+      <select class="form-select" id="fType">
+        <option value="home">Home</option>
+        <option value="work">Work</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Street Address</label>
+      <input class="form-input" id="fStreet" placeholder="No. 12, Anna Nagar" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">City</label>
+        <input class="form-input" id="fCity" placeholder="Chennai" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">State</label>
+        <input class="form-input" id="fState" placeholder="Tamil Nadu" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Pincode</label>
+        <input class="form-input" id="fPin" placeholder="600040" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input class="form-input" id="fPhone" placeholder="+91 98765 43210" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveAddress()">Save Address</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let addresses = [
+  {id:1,name:"Arjun Kumar",type:"home",street:"No. 12, 4th Cross, Anna Nagar",city:"Chennai",state:"Tamil Nadu",pin:"600040",phone:"+91 98400 11234",isDefault:true},
+  {id:2,name:"Arjun Kumar",type:"work",street:"Level 3, DLF IT Park, Ramapuram",city:"Chennai",state:"Tamil Nadu",pin:"600089",phone:"+91 98400 11234",isDefault:false}
+];
+let editId = null;
+let nextId = 3;
+
+function badgeClass(t){return t==='home'?'badge-home':t==='work'?'badge-work':'badge-other'}
+function typeLabel(t){return t.charAt(0).toUpperCase()+t.slice(1)}
+
+function render(){
+  const list = document.getElementById('addrList');
+  if(!addresses.length){
+    list.innerHTML=`<div class="empty-state"><div class="empty-icon"><i class="ti ti-map-off" aria-hidden="true"></i></div><div class="empty-title">No addresses saved yet</div><div>Add your first address to get started</div></div>`;
+    return;
+  }
+  list.innerHTML = addresses.map(a=>`
+    <div class="addr-card ${a.isDefault?'default-card':''}">
+      <div class="addr-card-top">
+        <div>
+          <div class="addr-label-row">
+            <span class="addr-type-badge ${badgeClass(a.type)}">${typeLabel(a.type)}</span>
+            ${a.isDefault?'<span class="default-tag"><i class="ti ti-star-filled" aria-hidden="true" style="font-size:11px"></i> Default</span>':''}
+          </div>
+          <div class="addr-name">${a.name}</div>
+          <div class="addr-line">${a.street}, ${a.city}, ${a.state} — ${a.pin}</div>
+          ${a.phone?`<div class="addr-phone"><i class="ti ti-phone" aria-hidden="true" style="font-size:14px"></i>${a.phone}</div>`:''}
+        </div>
+        <div class="addr-actions">
+          <button class="icon-btn" onclick="editAddr(${a.id})" aria-label="Edit address"><i class="ti ti-edit" aria-hidden="true"></i></button>
+          <button class="icon-btn danger" onclick="deleteAddr(${a.id})" aria-label="Delete address"><i class="ti ti-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      ${!a.isDefault?`<button class="set-default-btn" onclick="setDefault(${a.id})"><i class="ti ti-circle-check" style="font-size:14px" aria-hidden="true"></i> Set as default</button>`:''}
+    </div>
+  `).join('');
+}
+
+function openModal(id=null){
+  editId=id;
+  if(id){
+    const a=addresses.find(x=>x.id===id);
+    document.getElementById('fName').value=a.name;
+    document.getElementById('fType').value=a.type;
+    document.getElementById('fStreet').value=a.street;
+    document.getElementById('fCity').value=a.city;
+    document.getElementById('fState').value=a.state;
+    document.getElementById('fPin').value=a.pin;
+    document.getElementById('fPhone').value=a.phone||'';
+    document.getElementById('modalTitleText').textContent='Edit';
+  } else {
+    ['fName','fStreet','fCity','fState','fPin','fPhone'].forEach(f=>document.getElementById(f).value='');
+    document.getElementById('fType').value='home';
+    document.getElementById('modalTitleText').textContent='New';
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');editId=null}
+
+function saveAddress(){
+  const name=document.getElementById('fName').value.trim();
+  const street=document.getElementById('fStreet').value.trim();
+  const city=document.getElementById('fCity').value.trim();
+  if(!name||!street||!city)return;
+  const obj={
+    id:editId||nextId++,
+    name,type:document.getElementById('fType').value,
+    street,city,
+    state:document.getElementById('fState').value.trim(),
+    pin:document.getElementById('fPin').value.trim(),
+    phone:document.getElementById('fPhone').value.trim(),
+    isDefault:editId?addresses.find(x=>x.id===editId).isDefault:addresses.length===0
+  };
+  if(editId){addresses=addresses.map(x=>x.id===editId?obj:x);}
+  else{addresses.push(obj);}
+  closeModal();render();
+}
+
+function deleteAddr(id){
+  const a=addresses.find(x=>x.id===id);
+  addresses=addresses.filter(x=>x.id!==id);
+  if(a.isDefault&&addresses.length)addresses[0].isDefault=true;
+  render();
+}
+
+function setDefault(id){
+  addresses=addresses.map(a=>({...a,isDefault:a.id===id}));
+  render();
+}
+
+function editAddr(id){openModal(id)}
+
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+
+render();
+</script>

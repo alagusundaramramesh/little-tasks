@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "857257543372",
+    "firebase_url": "https://mr-racer-22384672.firebaseio.com",
+    "project_id": "mr-racer-22384672",
+    "storage_bucket": "mr-racer-22384672.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857257543372:android:e349a94555687bca3b2469",
+        "android_client_info": {
+          "package_name": "com.chennaigames.mrracer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "857257543372-kopc4lqgrah88emuqm5b6s15e2fh5fha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi3gLXxlAoJ3WehFneBBtfLpIx3IVA-8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "857257543372-kopc4lqgrah88emuqm5b6s15e2fh5fha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

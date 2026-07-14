@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refer and earn</title>
+</head>
+<body>
+    <div>
+
+       <button style="border-radius: 25px;"><img src="./Referral gift.gif"/><span style="position:relative;bottom: 7px;">Refer &Earn</span></button> 
+       
+    </div> 
+</body>
+<script>
+//  function RemoveUnwantedCss(data) {
+//     // Create a new DIV element to host the input HTML
+//     let element = document.createElement('div');
+//     element.innerHTML = data;
+
+//     // Query all style tags inside the element
+//     let styles = element.querySelectorAll('style');
+    
+//     // Remove each <style> element from the temporary div
+//     styles.forEach(style => style.remove());
+
+//     // Return the modified HTML as a string
+//     return element.innerHTML; 
+// }
+// let wanted = RemoveUnwantedCss("<p><span style='color: rgb(38, 50, 56); font-family: Roboto, sans-serif; font-size: 13px;'>Get 40% off coupon code for Quickheal&nbsp;</span>Android</p><p>Quick Heal Technologies Ltd. (Formerly Known as Quick Heal Technologies Pvt. Ltd.) is one of the leading IT security solutions company. Each Quick Heal product is designed to simplify IT security management across the length and depth of devices and on multiple platforms. They are customized to suit consumers, small businesses, Government establishments and corporate houses.</p><style>body{background-color:red;}</style>");
+// console.log(wanted)
+    function RemoveInlineStyles(html) {
+    // Create a temporary container
+    let element = document.createElement('div');
+    element.innerHTML = html;
+    
+    // Select all elements with a style attribute
+    let elementsWithStyle = element.querySelectorAll('[style]');
+    
+    // Remove the 'style' attribute from each element
+    elementsWithStyle.forEach(el => el.removeAttribute('style'));
+    
+    return element.innerHTML;
+}
+
+// Usage example:
+let cleaned = RemoveInlineStyles(
+    '<p><span style="color:red;font-size:13px">Text</span> Example</p>'
+);
+console.log(cleaned);
+
+</script>
+</html>

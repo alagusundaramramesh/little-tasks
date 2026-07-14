@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Range Filter</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --main-color-one: #007bff;
+        }
+
+        body {
+            background-color: #2a2a2a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .creator-widget {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .creator-widget .widget-title {
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-bottom: 1px solid #253039;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .creator-details-widget .range-slider {
+            position: relative;
+            width: 100%;
+            background-color: #444;
+            height: 6px;
+            border-radius: 3px;
+            margin: 20px 0;
+        }
+
+        .creator-details-widget .range-input {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            pointer-events: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: transparent;
+            margin: 0;
+            height: 6px;
+        }
+
+        .creator-details-widget .range-input::-webkit-slider-track {
+            height: 6px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .creator-details-widget .range-input::-moz-range-track {
+            height: 6px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .creator-details-widget .range-input::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 20px;
+            height: 20px;
+            background-color: var(--main-color-one);
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-appearance: none;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-top: -7px;
+        }
+
+        .creator-details-widget .range-input::-moz-range-thumb {
+            pointer-events: all;
+            width: 20px;
+            height: 20px;
+            background-color: var(--main-color-one);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-top: -7px;
+        }
+
+        .creator-details-widget .range-input:first-of-type {
+            z-index: 1;
+        }
+
+        .creator-details-widget .range-input:last-of-type {
+            z-index: 2;
+        }
+
+        .creator-details-widget .slider-values {
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .creator-category-widget ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .creator-category-widget li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .creator-category-widget li:last-child {
+            border-bottom: none;
+        }
+
+        .count {
+            background-color: #333;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .btn-base {
+            background-color: var(--main-color-one);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-base:hover {
+            background-color: #0056b3;
+        }
+        * {
+  -webkit-tap-highlight-color: transparent;
+}  
+    </style>
+</head>
+<body>
+    <div class="col-xl-2 col-lg-2">
+        <div class="creator-widget creator-details-widget mt-5">
+            <h4 class="widget-title">Filter Title</h4>
+            <form>
+                <div class="range-slider">
+                    <input type="range" id="min" min="0" max="100" value="10" class="range-input">
+                    <input type="range" id="max" min="0" max="100" value="90" class="range-input">
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4 pt-3">
+                    <a class="btn btn-base" style="color: #fff;" href="#">FILTER</a>
+                    <div class="slider-values">
+                        Price: <span id="min-value">10</span> - <span id="max-value">90</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- <div class="creator-widget creator-category-widget">
+            <h4 class="widget-title mb-4">Filter Category</h4>
+            <ul>
+                <li><label><input type="checkbox" class="me-2"> Platform Passes</label><span class="count">03</span></li>
+                <li><label><input type="checkbox" class="me-2"> Coins Bundles</label><span class="count">08</span></li>
+                <li><label><input type="checkbox" class="me-2"> Ticket Bundles</label><span class="count">06</span></li>
+                <li><label><input type="checkbox" class="me-2"> Gift Cards</label><span class="count">03</span></li>
+                <li><label><input type="checkbox" class="me-2"> Brand Vouchers</label><span class="count">08</span></li>
+                <li><label><input type="checkbox" class="me-2"> Gaming Accessories</label><span class="count">06</span></li>
+            </ul>
+        </div> -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const $minInput = $('#min');
+            const $maxInput = $('#max');
+            const $minValue = $('#min-value');
+            const $maxValue = $('#max-value');
+
+            function updateSlider() {
+                let min = parseInt($minInput.val());
+                let max = parseInt($maxInput.val());
+
+                // Prevent overlap
+                if (min >= max) {
+                    if ($(this).attr('id') === 'min') {
+                        $minInput.val(max - 1);
+                        min = max - 1;
+                    } else {
+                        $maxInput.val(min + 1);
+                        max = min + 1;
+                    }
+                }
+
+                // Update display
+                $minValue.text($minInput.val());
+                $maxValue.text($maxInput.val());
+            }
+
+            $minInput.on('input', updateSlider);
+            $maxInput.on('input', updateSlider);
+
+            // Initialize
+            updateSlider();
+        });
+    </script>
+</body>
+</html>

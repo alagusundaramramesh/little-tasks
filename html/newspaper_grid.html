@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Newspaper</title>
+</head>
+<style>
+    .container{
+        display: grid;
+        grid-template-columns:repeat(4,1fr);
+        grid-template-rows: 50px 60px ;
+        gap:20px;
+    }
+    .Newspaper{
+        background-color: rgb(10, 82, 145);
+        display:grid;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div class="header" 
+    style="background-color: lightcoral; 
+    display: grid;
+    grid-template-rows: 150px;">
+    </div>
+    <div class="headline"
+    style="display: grid;
+    background-color: antiquewhite; grid-template-rows: 20px;">
+    </div>
+    <!-- <div class=" header_img"
+    style="display: grid; grid-template-columns: repeat(4 1fr); grid-template: 10px; background-color: brown; gap: 10px;">1
+    <div style="background-color: aliceblue; display: grid; justify-content: center;">
+        
+    </div>
+    </div> -->
+    <div class="container" style="margin-top: 12px;">
+        <div class="Newspaper">1
+        </div>
+        <div class="Newspaper">2
+        </div>
+        <div class="Newspaper">3
+        </div>
+        <div class="Newspaper">4
+        </div>
+        <div class="Newspaper">5
+        </div>
+        <div class="Newspaper">6
+        </div>
+        <div class="Newspaper">7
+        </div>
+        <div class="Newspaper">8
+        </div>
+    </div>
+</body>
+</html>

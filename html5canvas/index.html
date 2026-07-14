@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Html Canvas</title>
+</head>
+<body>
+    <h3>Hello world</h3>
+    <canvas id="canvas-tic-tac-toe" style="background-color: greenyellow;"  
+    onclick="onclick_game(event)"
+    height="300" width="300">Fall back content</canvas>
+    
+</body>
+<script>
+    const canvas = document.getElementById('canvas-tic-tac-toe');
+    // canvas.addEventListener('click',onclick_game);
+    let cellsize = 100;
+    let current_player = 'X';
+    const board = [
+			['', '', ''],
+			['', '', ''],
+			['', '', '']
+		];
+    if(canvas){
+      const ctx = canvas.getContext('2d');
+         function drawBoard() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'red';
+            ctx.linewidth = 2;;
+            for (let index = 1; index < 3; index++) {
+                ctx.beginPath();
+                ctx.moveTo(index * cellsize, 0);
+                ctx.lineTo(index * cellsize, canvas.height);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, index * cellsize);
+                ctx.lineTo(canvas.width, index * cellsize);
+                ctx.stroke();
+            }
+        }
+        function write_player(){
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    const element = array[col];
+                    const x = col * cellsize + cellsize / 2;
+                    const y = row * cellsize + cellsize / 2;
+
+                    if(board[row][col] !== ""){
+                        if(winingcells && winingcells.includes(`${row}${col}`)){
+                            
+                        }
+                    }
+                }
+                
+            }
+        }
+        function onclick_game(event) {
+            alert("fghfdg")
+            const rect = canvas.getBoundingClientRect();
+            const mouse_x = event.clientX - rect.left;
+            const mouse_y = event.clientY - rect.top;
+            const col = Math.floor(mouse_x / cellsize);
+            const row = Math.floor(mouse_y / cellsize);
+            if(board[row][col]===""){
+                board[row][col]= current_player;
+                drawBoard();
+                
+
+            }
+            
+        }
+        function check_winner(){
+			for (let i = 0; i < 3; i++) {
+				if (board[i][0] !== '' && board[i][0] === board[i][1] && board[i][0] === board[i][2]) {
+					winningCells = [`${i}0`, `${i}1`, `${i}2`];
+					return true;
+				}
+
+				if (board[0][i] !== '' && board[0][i] === board[1][i] && board[0][i] === board[2][i]) {
+					winningCells = [`0${i}`, `1${i}`, `2${i}`];
+					return true;
+				}
+			}
+
+			if (board[0][0] !== '' && board[0][0] === board[1][1] && board[0][0] === board[2][2]) {
+				winningCells = ['00', '11', '22'];
+				return true;
+			}
+
+			if (board[0][2] !== '' && board[0][2] === board[1][1] && board[0][2] === board[2][0]) {
+				winningCells = ['02', '11', '20'];
+				return true;
+			}
+
+			return false;
+        }
+        window.onload = drawBoard;
+    }else{
+        alert('not recongized')
+    }
+
+   
+</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rectangle Spin Upward (X-Axis)</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .scene {
+      width: 220px;
+      height: 100%;
+      perspective: 1000px;
+      position: relative;
+      background-color: aquamarine;
+    }
+
+    .rectangle {
+      width: 200px;
+      height: 50px;
+      position: absolute;
+      bottom: 0;
+      transform-style: preserve-3d;
+      /* transition: transform 0.4s ease-in-out; */
+    }
+
+    .face {
+      position: absolute;
+      background-color: rgb(0, 0, 0);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 50px;
+      border: 2px solid red;
+      border-radius: 8px;
+      backface-visibility: hidden;
+    }
+
+    .front  { transform: translateZ(25px); }
+    .back   { transform: rotateX(180deg) translateZ(25px); }
+    .top    { transform: rotateX(90deg) translateZ(25px); }
+    .bottom { transform: rotateX(-90deg) translateZ(25px); }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="rectangle" id="rectangle">
+      <div class="face front">Participate</div>
+      <div class="face top">Earn</div>
+      <div class="face back">Win</div>
+      <div class="face bottom">Celebrate</div>
+    </div>
+  </div>
+
+<script>
+    const rect = document.getElementById("rectangle");
+    let y = 0;
+    const speed = 2;
+    const rotationFactor = 1; // rotate 1deg per pixel (can adjust)
+
+    function animate() {
+      y += speed;
+
+      const rotationX = y * rotationFactor;
+      rect.style.transform = `translateY(-${y}px) rotateX(${rotationX}deg)`;
+
+      // Fade out when near the top
+      if (y > window.innerHeight - 100) {
+        const fadeValue = 1 - ((y - (window.innerHeight - 100)) / 100);
+        rect.style.opacity = fadeValue < 0 ? 0 : fadeValue;
+      }
+
+      // Reset to bottom
+      if (y > window.innerHeight + 200) {
+        y = 0;
+        rect.style.opacity = 1;
+        // Let y = 0 reset the position and rotation naturally
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+
+</body>
+</html>

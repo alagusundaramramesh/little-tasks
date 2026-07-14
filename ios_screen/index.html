@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mobile Fullscreen Landscape</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    #iframe-div {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+      background: #000;
+    }
+
+    #game_frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      /* display: none; */
+    }
+
+    #img_frame {
+      width: 100%;
+      height: auto;
+    }
+
+    .fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      z-index: 9999;
+      background: #000;
+    }
+
+    #start-btn {
+      position: absolute;
+      z-index: 10000;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #00b7ff;
+      color: #fff;
+      font-size: 1.2rem;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .float_button_visibility {
+      display: flex !important;
+      visibility: visible !important;
+      z-index: 9999 !important;
+      pointer-events: auto !important;
+      opacity: 1 !important;
+    }
+
+    .fullscreen_manager {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100dvh !important;
+      z-index: 9999 !important;
+      background: #000 !important;
+      overflow: hidden !important;
+    }
+
+    ;
+  </style>
+  <script src="class.fullscreen_manager.js"></script>
+</head>
+
+<body>
+  <img id="img_frame" src="/POC/ios_screen/mr_racer.jpg" alt="Game Preview">
+  <div id="iframe-div">
+    <div id='float_button' style="top: 5%;  left : 0px ; position: absolute ; align-items: center ;
+      border-radius: 0px 30px 30px 0px ; background-color: #ffffff ; display: none ; visibility: visible ;
+      height: 35px ; opacity: 50% ; justify-content: flex-start ; margin-top: 10px ; margin-bottom: 10px ;
+      width: 60px ; z-index: 9999 " onclick="ExitFullscreen()">
+
+      <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-14yq2cq" focusable="false" aria-hidden="true"
+        viewBox="0 0 24 24" width="24" height="24" style="margin-left : 2px ; width: 17px ; height: 17px ;
+        color: rgb(104, 66, 255)">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M16.7424 21.6699C16.3724 22.08 15.7401 22.1124 15.3301 21.7424L7.0186 14.2424C5.66045 13.0169 5.66046 10.9831 7.0186 9.75758L15.3301 2.25759C15.7401 1.88759 16.3724 1.92004 16.7424 2.33007C17.1124 2.7401 17.08 3.37243 16.6699 3.74242L8.35847 11.2424C7.8805 11.6737 7.8805 12.3263 8.35847 12.7576L16.6699 20.2576C17.08 20.6276 17.1124 21.2599 16.7424 21.6699Z">
+        </path>
+      </svg>
+      <img src="mr_racer.jpg" alt="Logo Icon" style=" fill: rgb(0, 0, 0) ; width: 36px
+        "></img>
+    </div>
+    <iframe id="game_frame" src="/POC/ios_screen/5_none_v7/index.html"
+      allow="fullscreen; autoplay; accelerometer; gyroscope"></iframe>
+  </div>
+  <button id="start-btn">Start Game</button>
+
+  <script>
+
+    window.addEventListener("orientationchange", function () {
+      OS = class_css.getOS();
+      if (OS === "iOS Tablet" || OS === "iOS") {
+        class_css.onOrientationChange();
+      }
+    });
+    window.addEventListener('load', () => {OS = class_css.getOS();
+      if (OS === "iOS Tablet" || OS === "iOS") {
+        class_css.onOrientationChange();
+      }});
+    window.addEventListener('resize', () =>{OS = class_css.getOS();
+      if (OS === "iOS Tablet" || OS === "iOS") {
+        class_css.onOrientationChange();
+      }});
+    // INITIALIZE CLASS_CSS & CHECK OS
+    const class_css = new FullscreenController();
+    // class_css.test_func();
+
+    // HIt Play now button
+    const imgFrame = document.getElementById("img_frame");
+    const startBtn = document.getElementById("start-btn");
+    const Iframe_div = document.getElementById('iframe-div');
+
+    async function startGame() {
+
+      Iframe_div.style.display = "block";
+      startBtn.style.display = "none";
+      imgFrame.style.display = "none";
+      class_css.func_int();
+
+      // await enterFullscreen(document.documentElement);
+      // await lockLandscape();
+
+      // Adjust screen size for iOS safe area
+      // window.scrollTo(0, 0);
+      // document.body.style.height = window.innerHeight + "px";
+    }
+
+    function ExitFullscreen() {
+      class_css.ExitFullscreen();
+      imgFrame.style.display = "block";
+      startBtn.style.display = "block";
+      Iframe_div.style.display = "none";
+    }
+    document.addEventListener('fullscreenchange', function () {
+      if (!document.fullscreenElement) {
+        ExitFullscreen();
+      }
+    })
+
+
+
+
+
+
+
+    // function isIOS() {
+    //   const ua = navigator.userAgent || navigator.vendor || window.opera;
+    //   if (/iPad|iPhone|iPod/.test(ua)) return "iOS";
+    //   if (/android/i.test(ua)) return "Android";
+    //   return "PC";
+    // }
+
+    // async function lockLandscape() {
+    //   if (screen.orientation && screen.orientation.lock) {
+    //     try {
+    //       await screen.orientation.lock("landscape");
+    //       console.log("🔒 Locked to landscape");
+    //     } catch (err) {
+    //       console.warn("Orientation lock failed:", err);
+    //     }
+    //   }
+    // }
+
+    // async function enterFullscreen(elem) {
+    //   if (elem.requestFullscreen) {
+    //     await elem.requestFullscreen();
+    //   } else if (elem.webkitRequestFullscreen) {
+    //     await elem.webkitRequestFullscreen();
+    //   } else if (elem.msRequestFullscreen) {
+    //     await elem.msRequestFullscreen();
+    //   }
+    // }
+
+    // async function startGame() {
+    //   // const iframeDiv = document.getElementById("iframe-div");
+    //   // const gameFrame = document.getElementById("game_frame");
+    //   // const imgFrame = document.getElementById("img_frame");
+    //   // const startBtn = document.getElementById("start-btn");
+
+    //   // startBtn.style.display = "none";
+    //   // imgFrame.style.display = "none";
+    //   // gameFrame.style.display = "block";
+    //   // iframeDiv.classList.add("fullscreen");
+
+    //   // await enterFullscreen(document.documentElement);
+    //   // await lockLandscape();
+
+    //   // Adjust screen size for iOS safe area
+    //   // window.scrollTo(0, 0);
+    //   // document.body.style.height = window.innerHeight + "px";
+    // }
+
+    window.addEventListener("load", () => {
+      const startBtn = document.getElementById("start-btn");
+      startBtn.addEventListener("click", startGame);
+    });
+  </script>
+</body>
+
+</html>

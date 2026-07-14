@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CropperJS Simple Example</title>
+
+  <!-- CropperJS CSS -->
+  <link href="croppie.css" rel="stylesheet">
+  <!-- CropperJS JS -->
+  <script src="croppie.js"></script>
+  <script src="croppie.min.js"></script>
+
+  <style>
+    #preview {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    #cropped-result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h3>CropperJS Demo</h3>
+
+<input type="file" id="fileInput" accept="image/*">
+
+<br><br>
+
+<div>
+  <img id="preview" style="display:none;">
+</div>
+
+<button id="cropBtn" style="margin-top:10px; display:none;">Crop Image</button>
+
+<div id="cropped-result"></div>
+
+
+
+<script>
+  let cropper = null;
+
+  document.getElementById('fileInput').addEventListener('change', function (e) {
+      let file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+          let image = document.getElementById('preview');
+          image.src = e.target.result;
+          image.style.display = "block";
+
+          // Destroy existing cropper if exists
+          if (cropper) {
+              cropper.destroy();
+          }
+
+          // Initialize Croppie
+          cropper = new Croppie(image, {
+              boundary: { width: 500, height: 300 },
+              viewport: { width: 200, height: 200, type: 'circle' },
+              enableExif: true,
+              showZoomer: true,
+              mouseWheelZoom: 'ctrl'
+          });
+
+          cropper.bind({
+              url: e.target.result,
+              orientation: 1
+
+          })
+
+          document.getElementById('cropBtn').style.display = "inline-block";
+      }
+      reader.readAsDataURL(file);
+  });
+
+
+  // When "Crop" button clicked
+  document.getElementById('cropBtn').addEventListener('click', function () {
+      if (!cropper) return;
+      document.getElementById('preview').style.display = "none";
+      cropper.result({
+          type: 'base64',
+          size: 'viewport',
+          size: { width: 200, height: 200 },
+          format: 'png',
+          circle:false,
+          quality:1
+      }).then(function (cropper) {
+          console.log(" Cropped Image Base64: ", cropper);
+          // output_url = cropper;
+          document.getElementById('cropped-result').innerHTML =
+          `<h4>Cropped Output:</h4><img src="${cropper}" style="max-width:300px; border-radius:50%;">` +
+          `<a href="${cropper}" download="cropped_image.png">Download Cropped Image</a>`;
+          setTimeout(()=>{
+            document.getElementsByTagName('a')[0].click();
+          })
+      });
+      
+
+      
+  });
+</script>
+
+</body>
+</html>
+<!-- $('.crop_image').on('click', function(event){
+    // When the crop image button is pressed
+    $image_crop.croppie('result', {
+        type: 'blob',           // Request a Blob type output
+        size: 'viewport',       // Set the size to the viewport dimensions
+        format: 'png',          // Specify the image format (png, jpeg, webp)
+        quality: 1              // Set the image quality (0 to 1)
+    }).then(function (blob) {
+        // 'blob' is the buffer-like data you need
+
+        // Create FormData object and append the blob data
+        var formData = new FormData();
+        formData.append('upload_image', blob, 'cropped_image.png'); // 'cropped_image.png' is the filename
+
+        // Send the FormData via an AJAX POST request
+        $.ajax({
+            url: "handle-image-upload.php", // Your server-side endpoint
+            type: "POST",
+            data: formData,
+            processData: false, // Important: prevent jQuery from processing the data
+            contentType: false, // Important: prevent jQuery from setting the contentType
+            success: function (data) {
+                // Handle the server response
+                console.log("Upload successful:", data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Handle errors
+                console.error("Upload failed:", textStatus, errorThrown);
+            }
+        });
+    });
+});
+ -->

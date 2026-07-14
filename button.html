@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>button layout</title>
+</head>
+<body>
+    <style>
+        #gameselection-circle {
+            clip-path: circle(26.3% at 50% 50%);
+            /* background-color: black; */
+        }
+        #gameselection-arrow{
+            clip-path: polygon(78% 37%, 90% 50%, 79% 64%, 10% 64%, 10% 52%, 10% 37%);
+            background-color: #343a40;
+        }
+        .gameselction{
+            display: flex;
+            justify-content: center;
+            /* margin-top: 150px; */
+        }
+        .gameselction-btn{
+            height: 200px;
+            width: 200px;
+        }
+        #gameselection-arrow:hover {
+            background-color: #ff810e;
+        }
+        #gameselection-arrow:focus{
+            background-color: #ff810e;
+        }
+    </style>
+    <div class="container" style="display: inline-block; justify-content: space-around;">
+        <div class="gameselction">
+        <!-- <div style="z-index: 2;"> -->
+            <button class="gameselction-btn" id="gameselection-circle" style="z-index: 2;">
+            <img src = "../client/public/assets/img/tournament/chess_pawn.avif" alt="circle" style="height: 80px;width: 60px;"/>
+            </button>
+        <!-- </div> -->
+        <div style="margin-left: -0px;">
+            <button class="gameselction-btn" id = "gameselection-arrow" style="color: white;">
+            <h3 >Chess.com</h3>
+            </button>
+        </div>
+        </div>
+    <div class="gameselction">
+        <div style="z-index: 2;">
+            <button class="gameselction-btn" id="gameselection-circle">
+            <img src = "../client/public/assets/img/tournament/coc.avif" alt="circle" style="height: 110px;width: 110px;"/>
+            </button>
+        </div>
+        <div style="margin-left: -90px;">
+            <button class="gameselction-btn" id = "gameselection-arrow" style="color: white;">
+            <h3 >Clash of Clans</h3>
+            </button>
+        </div>
+
+    </div>
+       <div class="gameselction">
+        <div style="z-index: 2;">
+            <button class="gameselction-btn" id="gameselection-circle">
+            <img src = "../client/public/assets/img/tournament/cor.avif" alt="circle" style="height: 100px;width: 100px;"/>
+            </button>
+        </div>
+        <div style="margin-left: -90px;">
+            <button class="gameselction-btn" id = "gameselection-arrow" style="color: white;">
+            <h3 >Clash Royale</h3>
+            </button>
+        </div>
+       </div>
+    </div>
+    <!-- <style>
+.pizza-box {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  text-align: center;
+  margin: 10px;
+  padding-top: 40px;
+  font-weight: bold;
+}
+</style>
+
+<div class="pizza-box">Pepperoni</div>
+<div class="pizza-box">Cheese</div>
+<div class="pizza-box">Veggie</div> -->
+
+</body>
+</html>

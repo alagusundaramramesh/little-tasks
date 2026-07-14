@@ -1,0 +1,54 @@
+<input type="file" id="imageUpload">
+<div id="cropContainer"></div>
+<button id="cropAndUpload">Crop & Upload</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css">
+
+<script>
+$(document).ready(function() {
+    var croppieInstance;
+
+    $('#imageUpload').on('change', function() {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            if (croppieInstance) {
+                croppieInstance.destroy(); // Destroy previous instance if exists
+            }
+            $('#cropContainer').html(''); // Clear previous content
+            croppieInstance = $('#cropContainer').croppie({
+                viewport: { width: 200, height: 200, type: 'square' }, // Define crop area
+                boundary: { width: 300, height: 300 } // Define container size
+            });
+            croppieInstance.croppie('bind', { url: e.target.result });
+        };
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    $('#cropAndUpload').on('click', function() {
+        if (croppieInstance) {
+            croppieInstance.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function(imgData) {
+                // imgData is the base64 representation of the cropped image
+                $.ajax({
+                    url: 'upload.php', // Your server-side upload endpoint
+                    type: 'POST',
+                    data: { image: imgData },
+                    success: function(response) {
+                        console.log('Upload successful:', response);
+                        // Handle success (e.g., display cropped image)
+                    },
+                    error: function(error) {
+                        console.error('Upload error:', error);
+                    }
+                });
+            });
+        } else {
+            alert('Please select an image first.');
+        }
+    });
+});
+</script>

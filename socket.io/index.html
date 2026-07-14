@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket</title>
+</head>
+
+<body>
+
+  <div style="display: block;" id="phase1">
+    <input id="user" type="text" placeholder="name" autocomplete="off" />
+    <select id="choose-color">
+      <option>color</option>
+      <option value="Red">Red</option>
+      <option value="Blue">Blue</option>
+      <option value="Green">Green</option>
+    </select>
+    <select id="select-rooms">
+      <option value="">select room</option>
+      <option value="1">Room 1</option>
+      <option value="2">Room 2</option>
+      <option value="3">Room 3</option>
+    </select>
+    <button onclick="submit_1phase()">submit</button>
+
+  </div>
+
+  <div style="display: none;" id="phase2">
+    <!-- <select id="rooms">
+      <option value="">select room</option>
+      <option value="1">Room 1</option>
+      <option value="2">Room 2</option>
+      <option value="3">Room 3</option>
+    </select> -->
+    <form id="form" action="">
+      <input id="name"type="text" placeholder="Name" autocapitalize="on" readonly />
+      <input id="color"type="text" placeholder="Color" autocapitalize="on" readonly/>
+      <input id="input" type="text" placeholder="text" autocomplete="off" />
+      <button>send message</button>
+    </form>
+  </div>
+  <div>
+    <ul id="messages">
+
+    </ul>
+  </div>
+
+
+
+</body>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
+  integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+<script>
+  const socket = io();
+  let socket_id = socket.id;
+  const form = document.getElementById('form');
+  const input = document.getElementById('input');
+  const message = document.getElementById('messages');
+  const room = document.getElementById('rooms');
+  let arr_of_data = [];
+  function submit_1phase() {
+    // alert(1);
+    const room_selection = document.getElementById('select-rooms');
+    const color_selection = document.getElementById('choose-color');
+    const user_name = document.getElementById('user');
+    //  console.log(room_selection.value,color_selection.value,user_name.value);
+    if (room_selection != "" && color_selection != "" && user_name != "") {
+
+      let data = {
+        room_number: room_selection.value,
+        color_selection: color_selection.value,
+        user_name: user_name.value
+      }
+      // socket.emit('join_group', room.value);
+      socket.emit('room_choosing_message', data);
+      document.getElementById("phase1").style.display = 'none';
+      document.getElementById("phase2").style.display = "block";
+      arr_of_data.push(data);
+      reload_data();
+    } else {
+      alert('missing fields');
+    }
+
+  }
+
+  function reload_data () {
+    // let data = arr_of_data;
+    if(arr_of_data.length>0){
+      document.getElementById('name').value =arr_of_data[0].user_name;
+      document.getElementById('color').value =arr_of_data[0].color_selection;
+    }else{
+      alert("whoo nooo")
+    }
+  }
+
+
+  // room.addEventListener('change', (e) => {
+  //   socket.emit('join_group', room.value);
+  //   // socket.emit('message',{room_number:room.value,message:input.value})
+  // });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // let room_number = Number(room.value);
+    // socket.emit('room',room_number);
+    let color = document.getElementById('color').value;
+    let input_num = arr_of_data[0].room_number;
+    let input_name = arr_of_data[0].user_name;
+    if (input.value && input_num != "") {
+      socket.emit('server_message', { room_number: input_num, message: input.value,user_name: input_name,color:color});
+      input.value = '';
+
+    } else {
+      alert('select the room number')
+      window.location.reload();
+    }
+  });
+
+  socket.on('client_message', (user_name,msg,color) => {
+    let hii = user_name +"- "+msg;
+    color.toLowerCase();
+    const item = document.createElement('li');
+    item.textContent = hii;
+    item.style.color = color;
+    console.log(color,typeof(color));
+    message.appendChild(item);
+  });
+
+</script>
+
+</html>

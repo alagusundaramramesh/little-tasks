@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>without flex</title>
+</head>
+<body>
+    <style>
+        .game-nav-menu {
+            width: 150px;
+            height: 60px;
+            background-color: blue;
+        }
+
+        .circle {
+            width: 30%;
+            height: 75%;
+            margin-top: 5%;
+            float: left;
+            z-index: 2;
+            border-radius: 50%;
+            background-color: brown;
+            position: relative;
+            left: 7px;
+        }
+        .rect {
+            width: 40%;
+            height: 100%;
+            float: left;
+            background-color: green;
+        }
+
+        .rect-child {
+            width: 100%;
+            height: 50%;
+            background-color: black;
+            margin-top: 25%;
+        }
+
+        .arrow {
+            width: 20%;
+            height: 100%;
+            float: left;
+            background-color: yellow;
+        }
+
+        .arrow-child {
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to bottom right, transparent 50%, red 0),
+                linear-gradient(to top right, red 50%, transparent 0);
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+            background-position: left, right;
+            transform: rotate(90deg);
+        }
+    </style>
+
+<div class="game-nav-menu">
+    <div class="circle"></div>
+    <div class="rect">
+        <div class="rect-child"></div>
+    </div>
+    <div class="arrow">
+        <div class="arrow-child"></div>
+    </div>
+</div>
+   
+</body>
+</html>
